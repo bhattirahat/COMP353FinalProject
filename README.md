@@ -7,6 +7,5 @@
 After doing a git fetch pull
 
 In the terminal:
-Download the latest dependencies `npm install`
-
-Run the code `npm start`
+1. Download the latest dependencies `npm install`
+2. Run the code `npm start`
