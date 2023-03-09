@@ -1,8 +1,11 @@
 # COMP353FinalProject
 
-After doing a git fetch pull
-make sure do `npm install`
+
 
 ## How to run the code
 
-`npm start`
+After doing a git fetch pull
+
+In the terminal:
+Download the latest dependencies `npm install`
+Run the code `npm start`
