@@ -1,6 +1,7 @@
 # COMP353FinalProject
 
-
+## Setup
+1. Install node https://nodejs.org/en/ this allows you to run JavaScript anywhere
 
 ## How to run the code
 
