@@ -2,6 +2,7 @@ const express = require('express')
 const app = express();
 const path = require('path')
 const rootDir = require('./util/path')
+const db = require('./util/database')
 const { StatusCode } = require('status-code-enum')
 
 // Set variable globally on the express application
@@ -9,6 +10,20 @@ const { StatusCode } = require('status-code-enum')
 app.set('view engine', 'ejs');
 // Setting where to find the views
 app.set('views', path.join(__dirname, 'views'));
+
+db
+.then(conn=>{
+    conn.query(`SELECT * from Employee`, (err, result, fields) => {
+        if (err) throw err;
+        console.log("SQL Query Result-- ", result);
+        if (result.length !== 0) {  //considering SQL Select statement
+            result = result[0];
+            //perform your required work on result
+        }
+    });
+}).then(err=>{
+    console.log(err)
+})
 
 // Middleware
 // Parse the body request into json format
