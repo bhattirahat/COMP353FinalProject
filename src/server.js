@@ -1,8 +1,14 @@
 const express = require('express')
 const app = express();
 const path = require('path')
+const rootDir = require('./util/path')
 const { StatusCode } = require('status-code-enum')
 
+// Set variable globally on the express application
+// Setting the dynamic template engine
+app.set('view engine', 'ejs');
+// Setting where to find the views
+app.set('views', path.join(__dirname, 'views'));
 
 // Middleware
 // Parse the body request into json format
@@ -10,17 +16,22 @@ app.use(express.json())
 // Parse the body request from the URL into json format
 app.use(express.urlencoded({ extended: true }));
 // serve css file statically
-app.use(express.static(path.join(__dirname, 'public')));
-app.use('/css', express.static(path.join(__dirname, '../' ,'node_modules', 'bootstrap', 'dist', 'css')));
+app.use(express.static(path.join(rootDir, 'public')));
+app.use('/css', express.static(path.join(rootDir, '../' ,'node_modules', 'bootstrap', 'dist', 'css')));
 
 // redirect user to employee endpoint
 const empRoutes = require('./routes/employee_routes');
 app.use('/employee', empRoutes);
 
+// redirect user to 404 page
 app.use((req, res, next) => {
-    res.status(StatusCode.ClientErrorNotFound).sendFile(path.join(__dirname, 'views', '404.html'))
+    res
+    .status(StatusCode.ClientErrorNotFound)
+    .render('404',{
+        pageTitle: '404 Error'
+    });
+    //res.status(StatusCode.ClientErrorNotFound).sendFile(path.join(rootDir, 'views', '404.html'))
 })
-
 
 const server = app.listen(3000, () => {
     console.log("backend server listening on port", 3000)
