@@ -31,6 +31,7 @@ const forwardConfig = {
     dstHost: dbServer.host,
     dstPort: dbServer.port
 };
+
 const SSHConnection = new Promise((resolve, reject) => {
     sshClient.on('ready', () => {
         sshClient.forwardOut(
@@ -39,20 +40,20 @@ const SSHConnection = new Promise((resolve, reject) => {
         forwardConfig.dstHost,
         forwardConfig.dstPort,
         (err, stream) => {
-             if (err) reject(err);
-             const updatedDbServer = {
-                 ...dbServer,
-                 stream
+            if (err) reject(err);
+            const updatedDbServer = {
+                ...dbServer,
+                stream
             };
             const connection =  mysql.createConnection(updatedDbServer);
-           connection.connect((error) => {
-            if (error) {
-                reject(error);
-            }
-            resolve(connection);
+            connection.connect((error) => {
+                if (error) {
+                    reject(error);
+                }
+                resolve(connection);
             });
-});
-}).connect(tunnelConfig);
+        });
+    }).connect(tunnelConfig);
 });
 
 module.exports = SSHConnection;
