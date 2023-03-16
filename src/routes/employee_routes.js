@@ -8,10 +8,10 @@ const { StatusCode } = require('status-code-enum')
 // GET employee information
 router.get('/', async (req, res, next) => {
     res
-    .status(StatusCode.SuccessOK)
-    .render('employee',{
-        pageTitle: 'Employee'
-    })
+        .status(StatusCode.SuccessOK)
+        .render('employee', {
+            pageTitle: 'Employee'
+        })
 })
 
 module.exports = router
