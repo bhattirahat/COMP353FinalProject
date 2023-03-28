@@ -9,5 +9,6 @@ After doing a git fetch pull
 
 In the terminal:
 1. Download the latest dependencies `npm install`
-2. Run the code `npm start`
-3. Open link to `http://localhost:3000/`
+2. Include the .env file found in the discord channel
+3. Run the code `npm start`
+4. Open link to `http://localhost:3000/`
