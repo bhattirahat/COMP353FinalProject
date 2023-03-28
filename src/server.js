@@ -68,6 +68,7 @@ app.use((req, res, next) => {
     //res.status(StatusCode.ClientErrorNotFound).sendFile(path.join(rootDir, 'views', '404.html'))
 })
 
+
 const server = app.listen(3000, () => {
     console.log("backend server listening on port", 3000)
 });

@@ -1,4 +1,5 @@
 <%- include('includes/head.ejs') %>
+<link rel="stylesheet" href="../public/css/main.css">
  <!-- link to css files -->
 </head>
 
@@ -7,6 +8,42 @@
 
     <main>
         <h1>Facility</h1>
+        
+        <form class="facilityform" id="myForm">
+            <h2>Create a new Facility</h2><br>          
+                <label for="fname">Facility name:</label>
+                <input type="text" id="name" name="name" required placeholder="Facility"><br>
+                <br>
+                <!-- dropdown option are from the sql queries, join between facility and facility_type -->
+                <label for="cars">Choose a Facility Type:</label>
+                <select id="cars" name="cars" required >
+                  <option value="volvo">Hospital</option>
+                  <option value="saab">Special Facility</option>
+                  <option value="fiat">Clinic</option>
+                  <option value="audi">Clsc</option>
+                </select>
+                <br>
+                <br>
+                <label for="fname">Address:</label>
+                <input type="text" id="name" name="name" required title="Address"><br>
+                <br>
+                <label for="fname">Postal Code:</label>
+                <input type="text" id="name" name="name" required placeholder="Postal Code"><br>
+                <br>
+                <label for="fname">Web address:</label>
+                <input type="text" id="name" name="name" required placeholder="Web address"><br>
+                <br>
+                <label for="fname">Total Capacity:</label>
+                <input type="number" id="name" name="name" required placeholder="Capacity"><br>
+                <br>
+                <label for="fname">Postal Code:</label>
+                <input type="text" id="name" name="name" required placeholder="Postal Code"> <br>
+                <br>
+                <input type="submit" id="name" name="name" required><br>
+               
+        </form>
+
+     
     </main>
 <%- include('includes/end.ejs') %>
 
