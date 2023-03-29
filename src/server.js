@@ -11,21 +11,21 @@ app.set('view engine', 'ejs');
 // Setting where to find the views
 app.set('views', path.join(__dirname, 'views'));
 
-// db.then(conn => {
-//     conn.query(`SELECT * from Employee`, (err, result, fields) => {
-//         if (err) {
-//             throw err;
-//         }
-//         console.log("SQL Query Result-- ", result);
-//         if (result.length !== 0) {
-//             result = result[0];
-//             //perform your required work on result
-//         }
-//         conn.end();
-//     });
-// }).catch(err => {
-//     console.log(err)
-// })
+db.then(conn => {
+    conn.query(`SELECT * from Employee`, (err, result, fields) => {
+        if (err) {
+            throw err;
+        }
+        console.log("SQL Query Result-- ", result);
+        if (result.length !== 0) {
+            result = result[0];
+            //perform your required work on result
+        }
+        conn.end();
+    });
+}).catch(err => {
+    console.log(err)
+})
 
 
 // Middleware
