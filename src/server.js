@@ -2,7 +2,7 @@ const express = require('express')
 const app = express();
 const path = require('path')
 const rootDir = require('./util/path')
-const db = require('./util/database')
+//const db = require('./util/database')
 const { StatusCode } = require('status-code-enum')
 
 // Set variable globally on the express application
@@ -37,6 +37,7 @@ app.use(express.urlencoded({ extended: true }));
 // serve css file statically
 app.use(express.static(path.join(rootDir, 'public')));
 app.use('/css', express.static(path.join(rootDir, '../', 'node_modules', 'bootstrap', 'dist', 'css')));
+app.use('/js', express.static(path.join(rootDir, '../', 'node_modules', 'bootstrap', 'dist', 'js'))); // redirect bootstrap JS
 
 // redirect user to employee endpoint
 const empRoutes = require('./routes/employee_routes');
@@ -44,20 +45,20 @@ app.use('/employee', empRoutes);
 
 // redirect user to facility endpoint
 const facRoutes = require('./routes/facility_routes');
-app.use('/facility',facRoutes);
+app.use('/facility', facRoutes);
 
 // redirect user to vaccination endpoint
 const vaccRoutes = require('./routes/vaccination_routes');
-app.use('/vaccination',vaccRoutes);
+app.use('/vaccination', vaccRoutes);
 
 const homeRoute = require('./routes/homepage_routes');
-app.use('/homepage',homeRoute);
+app.use('/homepage', homeRoute);
 
 const infectionRoute = require('./routes/infection_routes');
-app.use('/infection',infectionRoute);
+app.use('/infection', infectionRoute);
 
 const scheduleRoute = require('./routes/schedule_routes');
-app.use('/schedule',scheduleRoute);
+app.use('/schedule', scheduleRoute);
 
 // redirect user to 404 page
 app.use((req, res, next) => {

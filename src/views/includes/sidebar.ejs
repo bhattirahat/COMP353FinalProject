@@ -1,0 +1,76 @@
+<div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 325px; height: 100vh">
+    <a href="/homepage" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <i class="fa-solid fa-square-h fa-2xl"></i>
+        <span class="fs-4" style="padding-left:10px">Health Status Tracker</span>
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+            <% if(pageTitle == 'Facility') {%>
+            <a href="/facility" class="nav-link active" aria-current="page">
+                <i class="fa-solid fa-hospital" style="padding-right: 5px;"></i>
+                Facility
+            </a>
+            <% } else{ %>
+            <a href="/facility" class="nav-link text-white">
+                <i class="fa-solid fa-hospital" style="padding-right: 5px;"></i>
+                Facility
+            </a>
+            <%}%>
+            
+
+        </li>
+        <li>
+            <% if(pageTitle == 'Employee') {%>
+            <a href="/employee" class="nav-link active" aria-current="page">
+                <i class="fa-solid fa-user" style="padding-right: 5px;"></i>
+                Employee
+            </a>
+            <% } else{ %>
+            <a href="/employee" class="nav-link text-white">
+                <i class="fa-solid fa-user" style="padding-right: 5px;"></i>
+                Employee
+            </a>
+            <%}%>
+        </li>
+        <li>
+            <% if(pageTitle == 'Vaccination') {%>
+            <a href="/vaccination" class="nav-link active" aria-current="page">
+                <i class="fa-solid fa-syringe" style="padding-right: 5px;"></i>
+                Vaccination
+            </a>
+            <% } else{ %>
+            <a href="/vaccination" class="nav-link text-white">
+                <i class="fa-solid fa-syringe" style="padding-right: 5px;"></i>
+                Vaccination
+            </a>
+            <%}%>
+        </li>
+        <li>
+            <% if(pageTitle == 'Infection') {%>
+            <a href="/infection" class="nav-link active" aria-current="page">
+                <i class="fa-solid fa-virus" style="padding-right: 5px;"></i>
+                Infection
+            </a>
+            <% } else{ %>
+            <a href="/infection" class="nav-link text-white">
+                <i class="fa-solid fa-virus" style="padding-right: 5px;"></i>
+                Infection
+            </a>
+            <%}%>     
+        </li>
+        <li>
+            <% if(pageTitle == 'Schedule') {%>
+            <a href="/schedule" class="nav-link active" aria-current="page">
+                <i class="fa-solid fa-calendar-days" style="padding-right: 5px;"></i>
+                Schedule
+            </a>
+            <% } else{ %>
+            <a href="/schedule" class="nav-link text-white">
+                <i class="fa-solid fa-calendar-days" style="padding-right: 5px;"></i>
+                Schedule
+            </a>
+            <%}%>
+        </li>
+    </ul>
+</div>
