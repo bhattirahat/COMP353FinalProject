@@ -21,11 +21,12 @@ app.set('views', path.join(__dirname, 'views'));
 //             result = result[0];
 //             //perform your required work on result
 //         }
-//         conn.end();
+//         // conn.end();
 //     });
 // }).catch(err => {
 //     console.log(err)
 // })
+
 
 
 // Middleware

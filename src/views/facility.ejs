@@ -17,9 +17,11 @@
             <h2>Create a new Facility</h2><br> 
                 <label  for="fname" >Facility name:</label>
                 <input type="text" id="facname" name="facname" required placeholder="Facility">
+
                 <!-- dropdown option are from the sql queries, join between facility and facility_type -->
-                <label for="cars" >Choose a Facility Type:</label>
+                <label for="facility" >Choose a Facility Type:</label>
                 <select id="type" name="type" required >
+                    <!-- for loop to retrieve data from database -->
                   <option value="Hospital">Hospital</option>
                   <option value="Special Facility">Special Facility</option>
                   <option value="Clinic">Clinic</option>
