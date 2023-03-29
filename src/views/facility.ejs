@@ -3,16 +3,13 @@
 </head>
 
 <body>
-
-
-    <main>
+    <main class="d-flex flex-nowrap">
         <%- include('includes/sidebar.ejs') %>
         <% if(success!='') { %>
         <div class="alert alert-primary" role="alert">
             Data has been entered Successfully
         </div>
         <% } %>
-        <h1>Facility</h1>
 
         <form class="facilityform" id="myForm" method="POST" action="/facility">
             <h2>Create a new Facility</h2><br>
