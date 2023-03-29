@@ -8,13 +8,13 @@
     <main>
         <h1>Facility</h1>
         
-        <form class="facilityform"id="myForm">
+        <form class="facilityform"id="myForm" method="POST" action="/facility">
             <h2>Create a new Facility</h2><br> 
                 <label  for="fname" >Facility name:</label>
-                <input type="text" id="facname" name="name" required placeholder="Facility">
+                <input type="text" id="facname" name="facname" required placeholder="Facility">
                 <!-- dropdown option are from the sql queries, join between facility and facility_type -->
                 <label for="cars" >Choose a Facility Type:</label>
-                <select id="type" name="cars" required >
+                <select id="type" name="type" required >
                   <option value="Hospital">Hospital</option>
                   <option value="Special Facility">Special Facility</option>
                   <option value="Clinic">Clinic</option>
@@ -23,20 +23,20 @@
                 <br>
                 <br>
                 <label for="fname">Address:</label>
-                <input type="text" id="address" name="name" required title="Address">
+                <input type="text" id="address" name="address" required title="Address">
                 <label for="fname" >Postal Code:</label>
-                <input type="text" id="postalcode" name="name" required placeholder="Postal Code"><br>
+                <input type="text" id="postalcode" name="postalcode" required placeholder="Postal Code"><br>
                 <br>
                 <label for="fname">Web address:</label>
-                <input type="text" id="webaddress" name="name" required placeholder="Web address">
+                <input type="text" id="webaddress" name="webaddress" required placeholder="Web address">
                 <label for="fname" >Total Capacity:</label>
-                <input type="number"  id="Capacity" name="name" required placeholder="Capacity"><br>
+                <input type="number"  id="Capacity" name="Capacity" required placeholder="Capacity"><br>
                 <br> 
                 <label for="fname" >Phone Number:</label>
-                <input type="tel"  id="phonenumber" name="name" required placeholder="phone number"><br>
+                <input type="tel"  id="phonenumber" name="phonenumber" required placeholder="phone number"><br>
                 <br> 
 
-                <input type="submit"   id="name" name="name" required><br>
+                <input type="submit" value="Add"  id="name" name="name" required><br>
         </form>
         <!-- <script>
             var form = document.getElementById('myForm')
