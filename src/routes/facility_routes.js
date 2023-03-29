@@ -11,7 +11,7 @@ router.get('/', async (req, res, next) => {
     res
         .status(StatusCode.SuccessOK)
         .render('facility', {
-            pageTitle: 'Facility'
+            pageTitle: 'Facility' , success:''
         })
 })
 router.post('/',async(req,res,next)=>{
@@ -37,14 +37,23 @@ router.post('/',async(req,res,next)=>{
             console.log("SQL Query Result-- ", result);
             if (result.length !== 0) {
                 result = result[0];
-                res.redirect("/facility")
+                // res.redirect("/facility")
+                res.render('facility', {
+                    pageTitle: 'Facility' , success:'Success'
+                })
+                
+                
             }
-            conn.end();
+            // conn.end();
         });
     }).catch(err => {
         console.log(err)
     })
     
 })
+
+// router.get("/",async(req,res,next)=>{
+
+// })
 
 module.exports = router

@@ -6,6 +6,11 @@
     <%- include('includes/navigation.ejs') %>
 
     <main>
+        <% if(success!='') { %>
+        <div class="alert alert-primary" role="alert">
+            Data has been entered Successfully
+          </div>
+          <% } %>
         <h1>Facility</h1>
         
         <form class="facilityform"id="myForm" method="POST" action="/facility">
@@ -22,6 +27,7 @@
                 </select>
                 <br>
                 <br>
+                
                 <label for="fname">Address:</label>
                 <input type="text" id="address" name="address" required title="Address">
                 <label for="fname" >Postal Code:</label>
