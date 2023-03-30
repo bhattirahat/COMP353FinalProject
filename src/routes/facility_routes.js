@@ -9,8 +9,9 @@ const db = require('../util/database')
 // GET employee information
 router.get('/', async (req, res, next) => {
     
-    db.then(conn => {
-        conn.query(`SELECT type from Facility_Type`, (err, result, fields) => {
+
+     db.then(conn => {
+        conn.query(`SELECT * from Facility`, (err, result, fields) => {
             if (err) {
                 throw err;
             }
@@ -26,7 +27,30 @@ router.get('/', async (req, res, next) => {
         });
     }).catch(err => {
         console.log(err)
-    })  
+    })
+
+
+
+
+    
+    // db.then(conn => {
+    //     conn.query(`SELECT type from Facility_Type`, (err, result, fields) => {
+    //         if (err) {
+    //             throw err;
+    //         }
+    //         console.log("SQL Query Result-- ", result);
+    //         if (result.length !== 0) {
+                
+    //             res.status(StatusCode.SuccessOK)
+    //             .render('facility', {
+    //              pageTitle: 'Facility' , success:'', data: result
+    //                          }) //perform your required work on result
+    //         }
+    //         // conn.end();
+    //     });
+    // }).catch(err => {
+    //     console.log(err)
+    // })  
 })
 
 
@@ -40,12 +64,8 @@ router.post('/',async(req,res,next)=>{
     var phonenumber = req.body.phonenumber;
     var webaddress = req.body.webaddress;
     var capacity = req.body.Capacity
-
-
-    // var cityvalue = `Select from City where name =${city}`
-    //query to fetch cityvalue
     
-    console.log(type)
+    
     
      db.then(conn => {
         conn.query(`Select facility_type_id from Facility_Type where type= "${type}"` , async (err, result, fields) => {
@@ -56,19 +76,18 @@ router.post('/',async(req,res,next)=>{
             if (result.length !== 0) {
                result = result[0];
                factype = await result["facility_type_id"]
-               console.log("type is "+type)
-               console.log(factype)
+              
                var send = 
                 `Insert Into Facility(name,facility_type_id,address,city_id,postal_code,phone_number,web_address,capacity)
                 values("${facility}",${factype},"${address}",${city},"${postalcode}","${phonenumber}","${webaddress}",${capacity})`
-                console.log(send)
+               
                 //query to insert into Facility Table
                   db.then(conn => {
         conn.query(send, (err, result, fields) => {
             if (err) {
                 throw err;
             }
-            console.log("SQL Query Result-- ", result);
+            //console.log("SQL Query Result-- ", result);
             if (result.length !== 0) {
                 res.redirect(req.originalUrl)
                 // res.render('facility', {
@@ -80,8 +99,6 @@ router.post('/',async(req,res,next)=>{
     }).catch(err => {
         console.log(err)
     })
-                
-
             }
             // conn.end();
         });
@@ -89,7 +106,14 @@ router.post('/',async(req,res,next)=>{
         console.log(err)
     })
    
+    // router.get('/data', async (req, res, next) =>{
 
+    //     res
+    //     .status(StatusCode.SuccessOK)
+    //     .render('facilitydata', {
+    //         pageTitle: 'Facility Data'
+    //     })
+    // })
 
     // var send = 
     // `Insert Into Facility(name,facility_type_id,address,city_id,postal_code,phone_number,web_address,capacity)

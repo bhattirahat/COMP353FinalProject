@@ -11,47 +11,35 @@
             Data has been entered Successfully
         </div>
         <% } %> -->
-
-        <form class="facilityform" id="myForm" method="POST" action="/facility">
-            <h2>Create a new Facility</h2><br>
-           
-                <label for="fname">Facility name:</label>
-                <input type="text"  id="facname" name="facname" required placeholder="Facility">
-                
-                <!-- dropdown option are from the sql queries, join between facility and facility_type -->
-                
-                <label for="facility">Choose a Facility Type:</label>
-                <select id="type" name="type" required>
-                    <!-- for loop to retrieve data from database -->
-                <% data.forEach(entry => { %>
+        <div style="width:fit-content; margin: auto; ">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Facility Name</th>
+                <th scope="col">Facility Type</th>
+                <th scope="col">Address</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <!-- <% data.forEach(entry => { %>
                 <option value = "<%=entry.type%>"><%=entry.type%> </option>
-                    <%})%>
-                    <!-- <option value="Hospital">Hospital</option>
-                    <option value="Special Facility">Special Facility</option>
-                    <option value="Clinic">Clinic</option>
-                    <option value="Clsc">Clsc</option> -->
-                </select>
-            
-            <br>
-            <br>
-            
-            <label for="fname">Address:</label>
-            <input type="text" id="address" name="address" required title="Address">
-            <label for="fname">Postal Code:</label>
-            <input type="text" id="postalcode" name="postalcode" required placeholder="Postal Code"><br>
-            
-            <br>
-            <label for="fname">Web address:</label>
-            <input type="text" id="webaddress" name="webaddress" required placeholder="Web address">
-            <label for="fname">Total Capacity:</label>
-            <input type="number" id="Capacity" name="Capacity" required placeholder="Capacity"><br>
-            <br>
-            <label for="fname">Phone Number:</label>
-            <input type="tel" id="phonenumber" name="phonenumber" required placeholder="phone number"><br>
-            <br>
+                    <%})%> -->
+                 <%data.forEach(entry => { %>   
+                <th scope="row"><%=entry.facility_id%></th>
+                <td><%=entry.name%></td>
+                <td><%=entry.facility_type_id%></td>
+                <td><%=entry.city_id%></td>
+            </tr>
+              <%})%>
+              
+            </tbody>
+          </table>
+        </div>
 
-            <input type="submit"  class="btn btn-primary" value="Create" id="name" name="name" required><br>
-        </form>
+
+        
         <!-- <script>
             var form = document.getElementById('myForm')
             form.addEventListener('submit',function(event){
