@@ -1,4 +1,4 @@
-const mysql = require('mysql2')
+const mysql = require('mysql2');
 const { Client } = require('ssh2');
 const sshClient = new Client();
 require('dotenv').config()
@@ -17,7 +17,8 @@ const dbServer = {
     port: process.env.DB_PORT,
     user: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE
+    database: process.env.DB_DATABASE,
+    
 }
 const tunnelConfig = {
     host: process.env.DB_SSH_HOST,

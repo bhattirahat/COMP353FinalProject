@@ -8,47 +8,116 @@ const db = require('../util/database')
 // Query #
 // GET employee information
 router.get('/', async (req, res, next) => {
-    res
-        .status(StatusCode.SuccessOK)
-        .render('facility', {
-            pageTitle: 'Facility' , success:''
-        })
+    
+    db.then(conn => {
+        conn.query(`SELECT type from Facility_Type`, (err, result, fields) => {
+            if (err) {
+                throw err;
+            }
+            console.log("SQL Query Result-- ", result);
+            if (result.length !== 0) {
+                
+                res.status(StatusCode.SuccessOK)
+                .render('facility', {
+                 pageTitle: 'Facility' , success:'', data: result
+                             }) //perform your required work on result
+            }
+            // conn.end();
+        });
+    }).catch(err => {
+        console.log(err)
+    })  
 })
+
+
 router.post('/',async(req,res,next)=>{
 
     var facility = req.body.facname;
-    var type = 1
+    var type = req.body.type //from facility_type
     var address  = req.body.address;
-    var city = 1;
+    var city = 1; //from city table
     var postalcode = req.body.postalcode;
     var phonenumber = req.body.phonenumber;
     var webaddress = req.body.webaddress;
     var capacity = req.body.Capacity
 
-    var send = 
-    `Insert Into Facility(name,facility_type_id,address,city_id,postal_code,phone_number,web_address,capacity)
-     values("${facility}",${type},"${address}",${city},"${postalcode}","${phonenumber}","${webaddress}",${capacity})`
+
+    // var cityvalue = `Select from City where name =${city}`
+    //query to fetch cityvalue
+    
+    console.log(type)
     
      db.then(conn => {
+        conn.query(`Select facility_type_id from Facility_Type where type= "${type}"` , async (err, result, fields) => {
+            if (err) {
+                throw err;
+            }
+            //console.log("SQL Query Result-- ", result);
+            if (result.length !== 0) {
+               result = result[0];
+               factype = await result["facility_type_id"]
+               console.log("type is "+type)
+               console.log(factype)
+               var send = 
+                `Insert Into Facility(name,facility_type_id,address,city_id,postal_code,phone_number,web_address,capacity)
+                values("${facility}",${factype},"${address}",${city},"${postalcode}","${phonenumber}","${webaddress}",${capacity})`
+                console.log(send)
+                //query to insert into Facility Table
+                  db.then(conn => {
         conn.query(send, (err, result, fields) => {
             if (err) {
                 throw err;
             }
             console.log("SQL Query Result-- ", result);
             if (result.length !== 0) {
-                result = result[0];
-                // res.redirect("/facility")
-                res.render('facility', {
-                    pageTitle: 'Facility' , success:'Success'
-                })
-                
-                
+                res.redirect(req.originalUrl)
+                // res.render('facility', {
+                //     pageTitle: 'Facility' , success:'Success'
+                // })
             }
             // conn.end();
         });
     }).catch(err => {
         console.log(err)
     })
+                
+
+            }
+            // conn.end();
+        });
+    }).catch(err => {
+        console.log(err)
+    })
+   
+
+
+    // var send = 
+    // `Insert Into Facility(name,facility_type_id,address,city_id,postal_code,phone_number,web_address,capacity)
+    //  values("${facility}",${type},"${address}",${city},"${postalcode}","${phonenumber}","${webaddress}",${capacity})`
+    
+    //  console.log(send)
+
+
+    //  db.then(conn => {
+    //     conn.query(send, (err, result, fields) => {
+    //         if (err) {
+    //             throw err;
+    //         }
+    //         console.log("SQL Query Result-- ", result);
+    //         if (result.length !== 0) {
+    //             result = result[0];
+    //             // res.redirect("/facility")
+    //             res.render('facility', {
+    //                 pageTitle: 'Facility' , success:'Success'
+    //             })
+                
+                
+    //         }
+    //         // conn.end();
+    //     });
+    // }).catch(err => {
+    //     console.log(err)
+    // })
     
 })
 
