@@ -10,17 +10,26 @@ const db = require('../util/database')
 router.get('/', async (req, res, next) => {
     
 
+    getFacility = `SELECT * from Facility;`
+    getFacilityType = `SELECT type from Facility_Type;`
+    get = getFacility+getFacilityType;
+    
+
+
      db.then(conn => {
-        conn.query(`SELECT * from Facility`, (err, result, fields) => {
+        conn.query(get, (err, result, fields) => {
             if (err) {
                 throw err;
             }
-            console.log("SQL Query Result-- ", result);
+             console.log("SQL Query Result-- ", result);
             if (result.length !== 0) {
-                
+                totalFacility = result[0]
+                console.log("total"+totalFacility)
+                totaltype = result[1]
+                console.log(totaltype)
                 res.status(StatusCode.SuccessOK)
                 .render('facility', {
-                 pageTitle: 'Facility' , success:'', data: result
+                 pageTitle: 'Facility' , success:'', data: totalFacility , field:totaltype
                              }) //perform your required work on result
             }
             // conn.end();
@@ -78,8 +87,8 @@ router.post('/',async(req,res,next)=>{
                factype = await result["facility_type_id"]
               
                var send = 
-                `Insert Into Facility(name,facility_type_id,address,city_id,postal_code,phone_number,web_address,capacity)
-                values("${facility}",${factype},"${address}",${city},"${postalcode}","${phonenumber}","${webaddress}",${capacity})`
+                `Insert Into Facility(name,facility_type_id,address,postal_code,phone_number,web_address,capacity)
+                values("${facility}",${factype},"${address}","${postalcode}","${phonenumber}","${webaddress}",${capacity})`
                
                 //query to insert into Facility Table
                   db.then(conn => {
@@ -87,7 +96,7 @@ router.post('/',async(req,res,next)=>{
             if (err) {
                 throw err;
             }
-            //console.log("SQL Query Result-- ", result);
+            // console.log("SQL Query Result-- ", result);
             if (result.length !== 0) {
                 res.redirect(req.originalUrl)
                 // res.render('facility', {
@@ -145,8 +154,13 @@ router.post('/',async(req,res,next)=>{
     
 })
 
-// router.get("/",async(req,res,next)=>{
+router.get("/data",async(req,res,next)=>{
 
-// })
+    
+        res.status(StatusCode.SuccessOK)
+            .render('facilitydata', {
+                pageTitle: 'Facility'
+            })
+})
 
 module.exports = router
