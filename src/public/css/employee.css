@@ -1,0 +1,7 @@
+.d-flex {
+    gap: 10px;
+}
+
+#employee_table tbody tr:hover {
+    cursor: pointer;
+}

@@ -1,10 +1,12 @@
-.facilityform{
+.facilityform {
     border-style: solid;
     border-color: black;
     text-align: center;
-    margin: auto; /* this will center the form horizontally */
-    width: 55%; padding: 2%;
-    
+    margin: auto;
+    /* this will center the form horizontally */
+    width: 55%;
+    padding: 2%;
+
 }
 
 

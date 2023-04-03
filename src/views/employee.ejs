@@ -1,14 +1,60 @@
 <%- include('includes/head.ejs') %>
 <!-- link to css files -->
+<link rel="stylesheet" href="css/employee.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+<script defer src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script defer src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script defer src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+<script defer src="https://cdn.datatables.net/select/1.6.2/js/dataTables.select.min.js"></script>
+<script defer src="js/employee.js"></script>
+
 </head>
 
 <body>
     <main class="d-flex flex-nowrap">
         <%- include('includes/sidebar.ejs') %>
         <div class="d-flex flex-column mb-3" style="margin: 20px;">
-            <h1>Employee</h1>
-        </div>
+            <div class="d-flex justify-content-between">
+                <h1>Employee</h1>
+            </div>
+            <div class="d-flex justify-content-center">
+                <table id="employee_table" class="table table-hover" style="width:100%">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">Emp_ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Date of Birth</th>
+                            <th>Medical Card Number</th>
+                            <th>Citizenship</th>
+                            <th>Occupation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (employee.length >  0) {%>
+                        <% for (let emp of employee) {%>
+                        <tr>
+                            <td><%= emp.employee_id %></td>
+                            <td><%= emp.first_name%></td>
+                            <td><%= emp.last_name%></td>
+                            <td><%= emp.email%></td>
+                            <td><%= emp.date_of_birth%></td>
+                            <td><%= emp.medical_card_number%></td>
+                            <td><%= emp.is_citizenship%></td>
+                            <td><%= emp.occupation_id%></td>
+                        </tr>
+                        <% }%>
+                        <% }%>
+                    </tbody>
+                </table>
+            </div>
 
+            <div class="d-flex flex-row">
+                <button type="button" class="btn btn-primary" disabled id="btnEdit">Edit</button>
+                <button type="button" class="btn btn-danger" disabled id="btnDelete">Delete</button>
+            </div>
+        </div>
     </main>
 
     <%- include('includes/end.ejs') %>
