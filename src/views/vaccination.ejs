@@ -4,11 +4,61 @@
 
 <body>
     <main class="d-flex flex-nowrap">
-        <%- include('includes/Sidebar.ejs') %>
-        <div class="d-flex flex-column mb-3" style="margin: 20px;">
-            <h1>Vaccination</h1>
+        
+        <%- include('includes/sidebar.ejs') %>
+        <!-- <% if(success!='') { %>
+        <div role="alert">
+            Data has been entered Successfully
         </div>
+        <% } %> --> 
+        
+        <div style=" flex-direction: column;">
+        <div style="width:fit-content; margin: auto;">
+        <table class="table table-hover table-sm">
+          
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Type</th>
+                <th scope="col">Dose</th>
+                <th scope="col">Employee</th>
+                <th scope="col">Facility</th>
+                <th scope="col">Date</th>
+                <th></th>
+                <th></th>
+              </tr>
+            
+            <tbody>
+              <tr>
+                <%if(data.length>0){ %>
+                 <%data.forEach(entry =>{ %>   
+                <th scope="row"><%=entry.Vaccination_id%></th>
+                <td><%=entry.Vaccine_id%></td>
+                <td><%=entry.Dose%></td>
+                <td><%=entry.employee_id%></td>
+                <td><%=entry.facility_id%></td>
+                <td><%=entry.Vaccination_date%></td>
+                <td><button class="btn btn-success">Edit</button></td>
 
+                <td><form action="/vaccination" method="POST">
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+                   </td>
+                
+            </tr>
+              <%})} else { %>
+                <th scope="row">No Data</th>
+              <%  }  %>
+            </tbody>
+          </table>
+        </div>
+        <br>
+
+        <br>
+
+
+        
+      </div>
+      
     </main>
 
     <%- include('includes/end.ejs') %>
