@@ -5,3 +5,21 @@
 #employee_table tbody tr:hover {
     cursor: pointer;
 }
+
+.btn-outline-danger {
+    --bs-btn-hover-color: #dc3545;
+    --bs-btn-hover-bg: #f1d6d6;
+}
+
+.modal-header-danger {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    background-color: #c8253b;
+    color: #fff;
+    padding: var(--bs-modal-header-padding);
+    border-bottom: var(--bs-modal-header-border-width) solid var(--bs-modal-header-border-color);
+    border-top-left-radius: var(--bs-modal-inner-border-radius);
+    border-top-right-radius: var(--bs-modal-inner-border-radius);
+}

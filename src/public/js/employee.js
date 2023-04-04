@@ -15,11 +15,13 @@ $(document).ready(function () {
             $(this).removeClass('selected');
             $('#btnEdit').prop('disabled', true);
             $('#btnDelete').prop('disabled', true);
+            $('#btnAdd').prop('disabled', false);
         } else {
             table.$('tr.selected').removeClass('selected');
             $(this).addClass('selected');
             $('#btnEdit').prop('disabled', false);
             $('#btnDelete').prop('disabled', false);
+            $('#btnAdd').prop('disabled', true);
         }
     });
 

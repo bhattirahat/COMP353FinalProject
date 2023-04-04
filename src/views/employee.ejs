@@ -50,16 +50,36 @@
             </div>
 
             <div class="d-flex flex-row">
-                <button type="button" class="btn btn-primary" disabled id="btnEdit" data-bs-toggle="modal" data-bs-target="#employeeModal">Edit</button>
+                <button type="button" class="btn btn-primary" id="btnAdd" data-bs-toggle="modal" data-bs-target="#addModal">Add</button>
+                <button type="button" class="btn btn-info" disabled id="btnEdit" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
                 <button type="button" class="btn btn-danger" disabled id="btnDelete" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
             </div>
 
-            <!-- Modal Edit -->
-            <div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="employeeModalLabel" aria-hidden="false">
+            <!-- Modal Add -->
+            <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="false">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="employeeModalLabel">Edit Employee</h1>
+                            <h1 class="modal-title fs-5" id="addModalLabel">Add Employee</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            ...
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Edit -->
+            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="editModalLabel">Edit Employee</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -77,11 +97,11 @@
             <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="false">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <div class="modal-header">
+                        <div class="modal-header-danger">
                             <h1 class="modal-title fs-5" id="deleteModalLabel">Are you sure?</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
                         </div>
-                        <div class="modal-footer">
+                        <div class="modal-footer justify-content-center">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
                             <button type="button" class="btn btn-outline-danger">Yes</button>
                         </div>
