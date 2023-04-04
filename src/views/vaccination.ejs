@@ -1,6 +1,9 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <%- include('includes/head.ejs') %>
 <!-- link to css files -->
-</head>
+
 
 <body>
     <main class="d-flex flex-nowrap">
@@ -30,24 +33,22 @@
             <tbody>
               <tr>
                 <%if(data.length>0){ %>
-                 <%data.forEach(entry =>{ %>   
-                <th scope="row"><%=entry.Vaccination_id%></th>
+                 <%data.forEach(entry =>{  %> 
+                
+                <th  id="test" data-test="<%=entry.Vaccination_id%>" scope="row"><%=entry.Vaccination_id%></th>
                 <td><%=entry.Vaccine_id%></td>
                 <td><%=entry.Dose%></td>
                 <td><%=entry.employee_id%></td>
                 <td><%=entry.facility_id%></td>
                 <td><%=entry.Vaccination_date%></td>
-                <td><button class="btn btn-success">Edit</button></td>
-
-                <td><form action="/vaccination" method="POST">
-                    <button class="btn btn-danger">Delete</button>
-                </form>
-                   </td>
+                <td><a href='/vaccination-edit/<%= entry.Vaccination_id%>'>Edit</a></td>
+                <td> <button id="deletebtn-<%= entry.Vaccination_id %>" class="btn btn-danger buttons">Delete</button> </td>
                 
             </tr>
               <%})} else { %>
-                <th scope="row">No Data</th>
+                <h1>No Data</h1>
               <%  }  %>
+              
             </tbody>
           </table>
         </div>
@@ -60,5 +61,43 @@
       </div>
       
     </main>
+    <script>
+      let butons = document.querySelectorAll('.buttons')
+      butons.forEach((butons)=>{
+        butons.addEventListener('click', (e)=>{
+          //let endpoint = '/vaccination'
+          const id = butons.id.split('-')[1]
+          //console.log(id);
+        fetch(`/${id}`,{
+          method:'DELETE',
+        }
+      )
+      .then((response) => response.text())
+      .then(data=>window.location.reload())
+      .catch(error => {console.error(error)})
+      })
+      })
+    </script>
 
-    <%- include('includes/end.ejs') %>
+<script>
+  let buttons = document.querySelectorAll('.editbutton')
+  buttons.forEach((button)=>{
+    button.addEventListener('click', (e)=>{
+      //let endpoint = '/vaccination'
+      const id = button.id.split('-')[1]
+      //console.log(id);
+    fetch(`/edit/${id}`,{
+      method:'GET',
+    }
+  )
+  .then((response) => response.text())
+  .then(data=>window.location.href = data.redirect)
+  .catch(error => {console.error(error)})
+  })
+  })
+  
+
+</script>
+
+</body>
+</html>
