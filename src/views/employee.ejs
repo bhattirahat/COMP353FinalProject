@@ -7,7 +7,6 @@
 <script defer src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
 <script defer src="https://cdn.datatables.net/select/1.6.2/js/dataTables.select.min.js"></script>
 <script defer src="js/employee.js"></script>
-
 </head>
 
 <body>
@@ -51,10 +50,46 @@
             </div>
 
             <div class="d-flex flex-row">
-                <button type="button" class="btn btn-primary" disabled id="btnEdit">Edit</button>
-                <button type="button" class="btn btn-danger" disabled id="btnDelete">Delete</button>
+                <button type="button" class="btn btn-primary" disabled id="btnEdit" data-bs-toggle="modal" data-bs-target="#employeeModal">Edit</button>
+                <button type="button" class="btn btn-danger" disabled id="btnDelete" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
             </div>
+
+            <!-- Modal Edit -->
+            <div class="modal fade" id="employeeModal" tabindex="-1" aria-labelledby="employeeModalLabel" aria-hidden="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="employeeModalLabel">Edit Employee</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            ...
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Delete -->
+            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="deleteModalLabel">Are you sure?</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                            <button type="button" class="btn btn-outline-danger">Yes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     </main>
-
     <%- include('includes/end.ejs') %>
