@@ -66,19 +66,38 @@ const scheduleRoute = require('./routes/schedule_routes');
 app.use('/schedule', scheduleRoute);
 
 app.get('/vaccination-edit/:id', async (req, res, next) => {
-    // res.json({redirect: '/vaccination-edit'})
+    //console.log(req.params.id);
     res.render('vaccination-edit', {
-        pageTitle: 'Vaccination Edit'
+        pageTitle: 'Vaccination Edit',
+        id:req.params.id
+    })
+
+})
+app.get('/vaccination-add', async (req, res, next) => {
+    //console.log(req.params.id);
+    res.render('vaccination-add', {
+        pageTitle: 'Vaccination Add'
     })
 
 })
 
-app.post('/vaccination-edit-submit', async (req, res, next) => {
-    console.log(req.body);
-    //console.log(req);
-    //add query here
-    res.redirect('/vaccination')
+app.post('/vaccination-add-submit', async (req, res, next) => {
+    db.then(conn => {
+        conn.query(`Insert into Vaccination(Vaccine_id, Dose, employee_id, facility_id, Vaccination_date) 
+        Values("${req.body.VType}","${req.body.Dose}","${req.body.EID}", "${req.body.FID}", "${req.body.Date}")`)
+})
+res.redirect('/vaccination')
+})
 
+app.post('/vaccination-edit-submit/:id', async (req, res, next) => {
+    //console.log(req.body);
+    //console.log(req.params.id);
+    db.then(conn => {
+        conn.query(`UPDATE Vaccination
+        SET Vaccine_id ="${req.body.VType}", Dose = "${req.body.Dose}", employee_id="${req.body.EID}", facility_id="${req.body.FID}", Vaccination_date="${req.body.Date}"
+        where Vaccination_id="${req.params.id}";`)
+})
+res.redirect('/vaccination')
 })
 
 app.delete('/:id', (req,res)=>{
