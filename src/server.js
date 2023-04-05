@@ -57,7 +57,7 @@ const vaccRoutes = require('./routes/vaccination_routes');
 app.use('/vaccination', vaccRoutes);
 
 const homeRoute = require('./routes/homepage_routes');
-app.use('/', homeRoute);
+app.use('/homepage',homeRoute);
 
 const infectionRoute = require('./routes/infection_routes');
 app.use('/infection', infectionRoute);
@@ -66,7 +66,6 @@ const scheduleRoute = require('./routes/schedule_routes');
 app.use('/schedule', scheduleRoute);
 
 app.get('/vaccination-edit/:id', async (req, res, next) => {
-    //console.log(req.params.id);
     res.render('vaccination-edit', {
         pageTitle: 'Vaccination Edit',
         id:req.params.id
@@ -74,7 +73,6 @@ app.get('/vaccination-edit/:id', async (req, res, next) => {
 
 })
 app.get('/vaccination-add', async (req, res, next) => {
-    //console.log(req.params.id);
     res.render('vaccination-add', {
         pageTitle: 'Vaccination Add'
     })
@@ -90,8 +88,6 @@ res.redirect('/vaccination')
 })
 
 app.post('/vaccination-edit-submit/:id', async (req, res, next) => {
-    //console.log(req.body);
-    //console.log(req.params.id);
     db.then(conn => {
         conn.query(`UPDATE Vaccination
         SET Vaccine_id ="${req.body.VType}", Dose = "${req.body.Dose}", employee_id="${req.body.EID}", facility_id="${req.body.FID}", Vaccination_date="${req.body.Date}"
