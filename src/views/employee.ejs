@@ -28,6 +28,9 @@
                             <th>Medical Card Number</th>
                             <th>Citizenship</th>
                             <th>Occupation</th>
+                            <th>Address Line</th>
+                            <th>Postal Code</th>
+                            <th>Telephone Number</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,7 +44,10 @@
                             <td><%= emp.date_of_birth%></td>
                             <td><%= emp.medical_card_number%></td>
                             <td><%= emp.is_citizenship%></td>
-                            <td><%= emp.occupation_id%></td>
+                            <td><%= emp.occupation%></td>
+                            <td><%= emp.Address_line%></td>
+                            <td><%= emp.Postal_Code%></td>
+                            <td><%= emp.telephone_number%></td>
                         </tr>
                         <% }%>
                         <% }%>
@@ -49,7 +55,7 @@
                 </table>
             </div>
 
-            <div class="d-flex flex-row">
+            <div class="d-flex flex-row" style="gap: 10px;">
                 <button type="button" class="btn btn-primary" id="btnAdd" data-bs-toggle="modal" data-bs-target="#addModal">Add</button>
                 <button type="button" class="btn btn-info" disabled id="btnEdit" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
                 <button type="button" class="btn btn-danger" disabled id="btnDelete" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
