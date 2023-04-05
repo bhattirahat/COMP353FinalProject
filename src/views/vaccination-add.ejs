@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('includes/head.ejs') %>
+<body>
+  <main class="d-flex flex-nowrap">
+    <form action="/vaccination-add-submit" method="POST">
+      <div class="form-group">
+        <label for="Vaccine Type">Vaccine Type</label>
+        <input type="number" class="form-control" id="VType" placeholder="Enter number 1 to 10" name="VType">
+      </div>
+      <div class="form-group">
+        <label for="Dose">Dose</label>
+        <input type="number" class="form-control" id="Dose" placeholder="Enter Dose #" name="Dose">
+      </div>
+      <div class="form-group">
+        <label for="Employee ID">Employee ID</label>
+        <input type="number" class="form-control" id="employeeID"  placeholder="Enter employeeID" name="EID">
+      </div>
+      <div class="form-group">
+        <label for="Facility ID">Facility ID</label>
+        <input type="number" class="form-control" id="FacilityID" placeholder="Enter Facility ID" name="FID">
+      </div>
+      <div class="form-group">
+        <label for="VaccinationDate">Vaccination Date</label>
+        <input type="date" class="form-control" id="VaccinationDate" placeholder="Enter your vaccination date" name="Date">
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+    
+    <!-- <script>
+      let buttons = document.getElementById('submitbtn')
+        buttons.addEventListener('click', (e)=>{
+
+        fetch(`/vaccination-edit-submit`,{
+          method:'POST',
+        }
+      )
+      .then((response) => response.text())
+      .then(data=>window.location.href = data.redirect)
+      .catch(error => {console.error(error)})
+      })
+      
+      
+    
+    </script> -->
+  </main>
+</body>
+
+</html>
