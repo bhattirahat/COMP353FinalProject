@@ -7,8 +7,93 @@
         <%- include('includes/Sidebar.ejs') %>
         <div class="d-flex flex-column mb-3" style="margin: 20px;">
             <h1>Vaccination</h1>
+            <!-- <% if(success!='') { %>
+            <div role="alert">
+                Data has been entered Successfully
+            </div>
+            <% } %> -->
+
+            <div style=" flex-direction: column;">
+                <div style="width:fit-content; margin: auto;">
+                    <table class="table table-hover table-sm">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Dose</th>
+                            <th scope="col">Employee</th>
+                            <th scope="col">Facility</th>
+                            <th scope="col">Date</th>
+                            <th><a href='/vaccination/add'>Add</a></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+
+                        <tbody>
+                            <tr>
+                                <%if(data.length>0){ %>
+                                <%data.forEach(entry =>{  %>
+
+                                <th id="test" data-test="<%=entry.Vaccination_id%>" scope="row"><%=entry.Vaccination_id%></th>
+                                <td><%=entry.Vaccine_id%></td>
+                                <td><%=entry.Dose%></td>
+                                <td><%=entry.employee_id%></td>
+                                <td><%=entry.facility_id%></td>
+                                <td><%=entry.Vaccination_date%></td>
+                                <td><a href='/vaccination/edit/<%= entry.Vaccination_id%>'>Edit</a></td>
+                                <td> <button id="deletebtn-<%= entry.Vaccination_id %>" class="btn btn-danger buttons">Delete</button> </td>
+
+                            </tr>
+                            <%})} else { %>
+                            <h1>No Data</h1>
+                            <%  }  %>
+
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <br>
+            </div>
+
         </div>
+
 
     </main>
 
+    <script>
+        let butons = document.querySelectorAll('.buttons')
+        butons.forEach((butons) => {
+            butons.addEventListener('click', (e) => {
+                //let endpoint = '/vaccination'
+                const id = butons.id.split('-')[1]
+                //console.log(id);
+                fetch(`/vaccination/${id}`, {
+                        method: 'DELETE',
+                    })
+                    .then((response) => response.text())
+                    .then(data => window.location.reload())
+                    .catch(error => {
+                        console.error(error)
+                    })
+            })
+        })
+    </script>
+
+    <!-- <script>
+    let buttons = document.querySelectorAll('.editbutton')
+    buttons.forEach((button)=>{
+      button.addEventListener('click', (e)=>{
+        //let endpoint = '/vaccination'
+        const id = button.id.split('-')[1]
+        //console.log(id);
+      fetch(`/edit/${id}`,{
+        method:'GET',
+      }
+    )
+    .then((response) => response.text())
+    .then(data=>window.location.href = data.redirect)
+    .catch(error => {console.error(error)})
+    })
+    })
+    
+  </script> -->
     <%- include('includes/end.ejs') %>
