@@ -20,7 +20,7 @@
                             <th scope="col">#</th>
                             <th scope="col">Type</th>
                             <th scope="col">Dose</th>
-                            <th scope="col">Employee</th>
+                            <th scope="col">Employee ID</th>
                             <th scope="col">Facility</th>
                             <th scope="col">Date</th>
                             <th><a href='/vaccination/add'>Add</a></th>
@@ -34,10 +34,10 @@
                                 <%data.forEach(entry =>{  %>
 
                                 <th id="test" data-test="<%=entry.Vaccination_id%>" scope="row"><%=entry.Vaccination_id%></th>
-                                <td><%=entry.Vaccine_id%></td>
+                                <td><%=entry.Vaccine_type%></td>
                                 <td><%=entry.Dose%></td>
                                 <td><%=entry.employee_id%></td>
-                                <td><%=entry.facility_id%></td>
+                                <td><%=entry.name%></td>
                                 <td><%=entry.Vaccination_date%></td>
                                 <td><a href='/vaccination/edit/<%= entry.Vaccination_id%>'>Edit</a></td>
                                 <td> <button id="deletebtn-<%= entry.Vaccination_id %>" class="btn btn-danger buttons">Delete</button> </td>
