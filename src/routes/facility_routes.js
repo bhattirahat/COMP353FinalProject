@@ -21,12 +21,12 @@ router.get('/', async (req, res, next) => {
             if (err) {
                 throw err;
             }
-            console.log("SQL Query Result-- ", result);
+            //console.log("SQL Query Result-- ", result);
             if (result.length !== 0) {
                 totalFacility = result[0]
-                console.log("total" + totalFacility)
+                //console.log("total"+totalFacility)
                 totaltype = result[1]
-                console.log(totaltype)
+                //console.log(totaltype)
                 res.status(StatusCode.SuccessOK)
                     .render('facility', {
                         pageTitle: 'Facility', success: '', data: totalFacility, field: totaltype

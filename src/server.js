@@ -2,7 +2,7 @@ const express = require('express')
 const app = express();
 const path = require('path')
 const rootDir = require('./util/path')
-//const db = require('./util/database')
+const db = require('./util/database')
 const { StatusCode } = require('status-code-enum')
 
 // Set variable globally on the express application

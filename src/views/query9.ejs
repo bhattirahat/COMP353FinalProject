@@ -1,0 +1,25 @@
+<%- include('includes/head.ejs') %>
+<!-- link to css files -->
+</head>
+
+<body>
+    <main class="d-flex flex-nowrap">
+        <%- include('includes/Sidebar.ejs') %>
+        <div class="d-flex flex-column mb-3" style="margin: 20px;">
+
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/homepage">Homepage</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"> <%= pageTitle %></li>
+                </ol>
+            </nav>
+
+            <form action="" method="POST">
+
+            </form>
+        </div>
+
+
+    </main>
+
+    <%- include('includes/end.ejs') %>

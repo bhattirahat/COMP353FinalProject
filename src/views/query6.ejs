@@ -1,0 +1,27 @@
+<%- include('includes/head.ejs') %>
+<!-- link to css files -->
+</head>
+
+<body>
+    <main class="d-flex flex-nowrap">
+        <%- include('includes/Sidebar.ejs') %>
+        <div class="d-flex flex-column mb-3" style="margin: 20px;">
+
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/homepage">Homepage</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"> <%= pageTitle %></li>
+                </ol>
+            </nav>
+
+            <p>Get details of all the facilities in the system. Details include the facility's name, address, city, province, postal-code, phone number, web address, type, capacity, general manager’s name and number of employees currently working for the facility. Results should be displayed sorted in ascending order by province, then by city, then by type, then by number of employees currently working for the facility.</p>
+
+            <form action="" method="POST">
+
+            </form>
+        </div>
+
+
+    </main>
+
+    <%- include('includes/end.ejs') %>
