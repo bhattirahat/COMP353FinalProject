@@ -7,9 +7,12 @@ const db = require('../util/database');
 
 // GET Vaccination information
 router.get('/', async (req, res, next) => {
-    getFacility = `SELECT * from Vaccination;`
+    getFacility = `SELECT  t1.Vaccination_id, t2.Vaccine_type, t1.Dose, t1.employee_id, t3.name, t1.Vaccination_date
+    FROM Vaccination t1
+    inner join Vaccine t2 on t1.Vaccine_id = t2.Vaccine_id
+    inner join Facility t3 on t1.facility_id = t3.facility_id;`
     //getFacilityType = `SELECT type from Vaccine;`
-    get = getFacility;//+getFacilityType;
+    get = getFacility;
     db.then(conn => {
         conn.query(get, (err, result, fields) => {
             if (err) {
