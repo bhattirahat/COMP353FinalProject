@@ -60,11 +60,11 @@
     </main>
 
     <script>
-        let butons = document.querySelectorAll('.buttons')
-        butons.forEach((butons) => {
-            butons.addEventListener('click', (e) => {
+        let buttons = document.querySelectorAll('.buttons')
+        buttons.forEach((buttons) => {
+            buttons.addEventListener('click', (e) => {
                 //let endpoint = '/vaccination'
-                const id = butons.id.split('-')[1]
+                const id = buttons.id.split('-')[1]
                 //console.log(id);
                 fetch(`/vaccination/${id}`, {
                         method: 'DELETE',
