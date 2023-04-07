@@ -1,5 +1,6 @@
 <%- include('includes/head.ejs') %>
 <!-- link to css files -->
+
 </head>
 
 <body>
@@ -16,34 +17,34 @@
             <p>Get details of all the employees currently working in a specific facility. Details include employee’s first-name, last-name, start date of work, date of birth, Medicare card number, telephone-number, address, city, province, postal-code, citizenship, and email address. Results should be displayed sorted in ascending order by role, then by first name, then by last name</p>
 
             <form action="/homepage/query7/getInfo" method="GET">
-                <div class="form-group">
+                <div class=" form-group">
                     <label for="FID">Facility ID</label>
                     <input type="number" class="form-control" id="FID" placeholder="Enter Facility ID" name="FID">
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary mb-3">Submit</button>
             </form>
 
-            <table class="table table-hover table-sm">
-                <tr>
-                    <th scope="col">First Name</th>
-                    <th scope="col">Last Name</th>
-                    <th scope="col">Start Date</th>
-                    <th scope="col">DoB</th>
-                    <th scope="col">Medicare #</th>
-                    <th scope="col">Telephone #</th>
-                    <th scope="col">Address</th>
-                    <th scope="col">City</th>
-                    <th scope="col">Province</th>
-                    <th scope="col">Postal Code</th>
-                    <th scope="col">Citizenship</th>
-                    <th scope="col">Email</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                <tbody>
+            <table id="query7_table" class="table table-striped table-sm">
+                <thead class="table-light">
                     <tr>
-                        <%if(data.length>0){ %>
-                        <%data.forEach(entry =>{  %>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">Start Date</th>
+                        <th scope="col">DoB</th>
+                        <th scope="col">Medicare #</th>
+                        <th scope="col">Telephone #</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">City</th>
+                        <th scope="col">Province</th>
+                        <th scope="col">Postal Code</th>
+                        <th scope="col">Citizenship</th>
+                        <th scope="col">Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <%if(data.length>0){ %>
+                    <%data.forEach(entry =>{  %>
+                    <tr>
                         <td><%=entry.first_name%></td>
                         <td><%=entry.last_name%></td>
                         <td><%=entry.Start_Date%></td>
@@ -56,12 +57,8 @@
                         <td><%=entry.Postal_Code%></td>
                         <td><%=entry.is_citizenship%></td>
                         <td><%=entry.email%></td>
-                        
                     </tr>
-                    <%})} else { %>
-                    <h1>No Data</h1>
-                    <%  }  %>
-
+                    <%})}%>
                 </tbody>
             </table>
         </div>
