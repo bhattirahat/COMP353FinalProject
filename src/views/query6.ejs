@@ -5,66 +5,56 @@
 <body>
     <main class="d-flex flex-nowrap">
         <%- include('includes/sidebar.ejs') %>
-        <div class="d-flex flex-column mb-3">
+        <div class="d-flex flex-column mb-3" style="margin: 20px;">
+
+            <%- include('includes/queryNav.ejs') %>
+            <p>Get details of all the facilities in the system. Details include the facility's name, address, city, province, postal-code, phone number, web address, type, capacity, general manager’s name and number of employees currently working for the facility. Results should be displayed sorted in ascending order by province, then by city, then by type, then by number of employees currently working for the facility.</p>
+
+            <table class="table table-hover table-sm ">
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>Province</th>
+                    <th>Postal Code</th>
+                    <th>Phone number</th>
+                    <th>Web address</th>
+                    <th>Type</th>
+                    <th>Capacity</th>
+                    <th>General Manager</th>
+                    <th># of Employee</th>
+                </tr>
+                <tbody>
+                    <tr>
+                        <%if(data.length>0){ %>
+                        <%data.forEach(entry =>{ %>
+                        <th><%=entry.facility_id%></th>
+                        <th><%=entry.name%></th>
+                        <th><%=entry.address%></th>
+                        <th><%=entry.City%></th>
+                        <th><%=entry.Province%></th>
+                        <th><%=entry.postal_code%></th>
+                        <th><%=entry.phone_number%></th>
+                        <th><%=entry.web_address%></th>
+                        <th><%=entry.type%></th>
+                        <th><%=entry.capacity%></th>
+                        <th><%=entry.General_Manager%></th>
+                        <th><%=entry.curr_num_workers%></th>
+
+
+
+                    </tr>
+                    <%})} else { %>
+                    <th scope="row">No Data</th>
+                    <%  }  %>
+                </tbody>
+            </table>
+            <form action="" method="POST">
+
+            </form>
 
         </div>
-
-    </main>
-
-
-    <%- include('includes/Sidebar.ejs') %>
-    <div class="d-flex flex-column mb-3" style="margin: 20px;">
-
-        <%- include('includes/queryNav.ejs') %>
-
-        <p>Get details of all the facilities in the system. Details include the facility's name, address, city, province, postal-code, phone number, web address, type, capacity, general manager’s name and number of employees currently working for the facility. Results should be displayed sorted in ascending order by province, then by city, then by type, then by number of employees currently working for the facility.</p>
-
-        <table class="table table-hover table-sm ">
-            <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Address</th>
-                <th>City</th>
-                <th>Province</th>
-                <th>Postal Code</th>
-                <th>Phone number</th>
-                <th>Web address</th>
-                <th>Type</th>
-                <th>Capacity</th>
-                <th>General Manager</th>
-                <th># of Employee</th>
-            </tr>
-            <tbody>
-                <tr>
-                    <%if(data.length>0){ %>
-                    <%data.forEach(entry =>{ %>
-                    <th><%=entry.facility_id%></th>
-                    <th><%=entry.name%></th>
-                    <th><%=entry.address%></th>
-                    <th><%=entry.City%></th>
-                    <th><%=entry.Province%></th>
-                    <th><%=entry.postal_code%></th>
-                    <th><%=entry.phone_number%></th>
-                    <th><%=entry.web_address%></th>
-                    <th><%=entry.type%></th>
-                    <th><%=entry.capacity%></th>
-                    <th><%=entry.General_Manager%></th>
-                    <th><%=entry.curr_num_workers%></th>
-
-
-
-                </tr>
-                <%})} else { %>
-                <th scope="row">No Data</th>
-                <%  }  %>
-            </tbody>
-        </table>
-
-        <form action="" method="POST">
-
-        </form>
-    </div>
-
 
     </main>
 

@@ -42,12 +42,6 @@ app.use('/infection', infectionRoute);
 const scheduleRoute = require('./routes/schedule_routes');
 app.use('/schedule', scheduleRoute);
 
-
-const QueryRoute = require("./routes/query_routes");
-app.use('/query6', QueryRoute);
-
-
-
 app.use('/', homeRoute);
 
 // redirect user to 404 page
