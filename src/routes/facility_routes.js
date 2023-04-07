@@ -7,29 +7,35 @@ const db = require('../util/database')
 
 // Query #
 // GET employee information
+
+
+
 router.get('/', async (req, res, next) => {
     
 
-    getFacility = `SELECT * from Facility;`
-    getFacilityType = `SELECT type from Facility_Type;`
-    get = getFacility+getFacilityType;
-    
-
+    getFacility = `Select Facility.facility_id,Facility.name,Facility_Type.type,Facility.address,Facility.postal_code,Facility.phone_number,Facility.web_address,Facility.capacity from Facility
+    JOIN Facility_Type ON Facility.facility_type_id = Facility_Type.facility_type_id;`
+   
+    getFacilityType =`SELECT type from Facility_Type;`
+    getCities = `Select City.name from City;`
+   
+    get = getFacility+getFacilityType+getCities;
 
      db.then(conn => {
         conn.query(get, (err, result, fields) => {
             if (err) {
                 throw err;
             }
-             console.log("SQL Query Result-- ", result);
+             //console.log("SQL Query Result-- ", result);
             if (result.length !== 0) {
                 totalFacility = result[0]
                 console.log("total"+totalFacility)
                 totaltype = result[1]
+                cities = result[2]
                 console.log(totaltype)
                 res.status(StatusCode.SuccessOK)
                 .render('facility', {
-                 pageTitle: 'Facility' , success:'', data: totalFacility , field:totaltype
+                 pageTitle: 'Facility', data: totalFacility , field:totaltype, city:cities
                              }) //perform your required work on result
             }
             // conn.end();
@@ -38,48 +44,29 @@ router.get('/', async (req, res, next) => {
         console.log(err)
     })
 
-
-
-
-    
-    // db.then(conn => {
-    //     conn.query(`SELECT type from Facility_Type`, (err, result, fields) => {
-    //         if (err) {
-    //             throw err;
-    //         }
-    //         console.log("SQL Query Result-- ", result);
-    //         if (result.length !== 0) {
-                
-    //             res.status(StatusCode.SuccessOK)
-    //             .render('facility', {
-    //              pageTitle: 'Facility' , success:'', data: result
-    //                          }) //perform your required work on result
-    //         }
-    //         // conn.end();
-    //     });
-    // }).catch(err => {
-    //     console.log(err)
-    // })  
 })
 
 
-router.post('/',async(req,res,next)=>{
+router.post('/post',async(req,res,next)=>{
 
     var facility = req.body.facname;
     var type = req.body.type //from facility_type
     var address  = req.body.address;
-    var city = 1; //from city table
+    var city = req.body.city; //from city table
     var postalcode = req.body.postalcode;
     var phonenumber = req.body.phonenumber;
     var webaddress = req.body.webaddress;
     var capacity = req.body.Capacity
     
-    
+    console.log(city)
+
+    sendCity = `Select City.city._id from City where name = ${city}`;
     
      db.then(conn => {
         conn.query(`Select facility_type_id from Facility_Type where type= "${type}"` , async (err, result, fields) => {
             if (err) {
-                throw err;
+                 throw err;
+                // res.redirect('/')
             }
             //console.log("SQL Query Result-- ", result);
             if (result.length !== 0) {
@@ -89,19 +76,18 @@ router.post('/',async(req,res,next)=>{
                var send = 
                 `Insert Into Facility(name,facility_type_id,address,postal_code,phone_number,web_address,capacity)
                 values("${facility}",${factype},"${address}","${postalcode}","${phonenumber}","${webaddress}",${capacity})`
-               
                 //query to insert into Facility Table
                   db.then(conn => {
         conn.query(send, (err, result, fields) => {
             if (err) {
+                // res.redirect('/')
                 throw err;
             }
             // console.log("SQL Query Result-- ", result);
             if (result.length !== 0) {
-                res.redirect(req.originalUrl)
-                // res.render('facility', {
-                //     pageTitle: 'Facility' , success:'Success'
-                // })
+                res.redirect('/facility') 
+        
+               
             }
             // conn.end();
         });
@@ -114,53 +100,88 @@ router.post('/',async(req,res,next)=>{
     }).catch(err => {
         console.log(err)
     })
-   
-    // router.get('/data', async (req, res, next) =>{
-
-    //     res
-    //     .status(StatusCode.SuccessOK)
-    //     .render('facilitydata', {
-    //         pageTitle: 'Facility Data'
-    //     })
-    // })
-
-    // var send = 
-    // `Insert Into Facility(name,facility_type_id,address,city_id,postal_code,phone_number,web_address,capacity)
-    //  values("${facility}",${type},"${address}",${city},"${postalcode}","${phonenumber}","${webaddress}",${capacity})`
-    
-    //  console.log(send)
-
-
-    //  db.then(conn => {
-    //     conn.query(send, (err, result, fields) => {
-    //         if (err) {
-    //             throw err;
-    //         }
-    //         console.log("SQL Query Result-- ", result);
-    //         if (result.length !== 0) {
-    //             result = result[0];
-    //             // res.redirect("/facility")
-    //             res.render('facility', {
-    //                 pageTitle: 'Facility' , success:'Success'
-    //             })
-                
-                
-    //         }
-    //         // conn.end();
-    //     });
-    // }).catch(err => {
-    //     console.log(err)
-    // })
     
 })
 
-router.get("/data",async(req,res,next)=>{
+router.get('/delete/:id',async(req,res,next)=>{
 
-    
-        res.status(StatusCode.SuccessOK)
-            .render('facilitydata', {
-                pageTitle: 'Facility'
-            })
+    let id = req.params.id    
+    deletequery = `Delete from Facility where facility_id = ${id};`
+    console.log(deletequery)
+    db.then(conn => {
+        conn.query(deletequery, (err, result, fields) => {
+            if (err) {
+                throw err;
+            }
+            console.log("SQL Query Result-- ", result);
+            if (result.length !== 0) {
+                result = result[0];
+                res.redirect('/facility')
+            }
+            // conn.end();
+        });
+    }).catch(err => {
+        console.log("error is "+err)
+    })
 })
+
+router.get('/:id',async(req,res,next)=>{
+ 
+    let id = req.params.id  
+    getData = `Select * from Facility where facility_id = ${id};`
+    getFacilityType =`SELECT type from Facility_Type;`
+    getCities = `Select City.name from City;`
+
+    total = getData+getFacilityType+getCities
+
+    db.then(conn => {
+        conn.query(total, (err, result, fields) => {
+            if (err) {
+                throw err;
+            }
+            console.log("SQL Query Result-- ", result);
+            if (result.length !== 0) {
+                result = result[0];
+                totaltype = result[1]
+                res.render('facilityEdit',{data:result[0],field:totaltype,city:result[2]})
+            }
+            // conn.end();
+        });
+    }).catch(err => {
+        console.log("error is "+err)
+    })
+    
+})
+router.get('/edit/:id',async(req,res,next)=>{
+ 
+    let id = req.params.id  
+    getData = `Select * from Facility where facility_id = ${id};`
+    getFacilityType =`SELECT type from Facility_Type;`
+    getCities = `Select City.name from City;`
+
+    total = getData+getFacilityType+getCities
+
+    db.then(conn => {
+        conn.query(total, (err, result, fields) => {
+            if (err) {
+                throw err;
+            }
+            console.log("SQL Query Result-- ", result);
+            if (result.length !== 0) {
+                result = result[0];
+                totaltype = result[1]
+                res.render('facilityEdit',{data:result[0],field:totaltype,city:result[2]})
+            }
+            // conn.end();
+        });
+    }).catch(err => {
+        console.log("error is "+err)
+    })
+    
+})
+
+
+
+
 
 module.exports = router

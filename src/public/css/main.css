@@ -1,7 +1,10 @@
 
 
 .table td {
-    text-align: justify;   
+    text-align: center;   
+ }
+ .table th {
+    text-align: center;   
  }
 .facilityform{
     /* border-style: solid; */
@@ -11,7 +14,8 @@
     margin: auto; /* this will center the form horizontally */
     width: 70%; 
     padding: 2%;
-    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5)
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+    font-size: small
 }
 input[type=text ] {
     

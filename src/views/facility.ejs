@@ -1,51 +1,45 @@
 <%- include('includes/head.ejs') %>
 <!-- link to css files -->
+
 </head>
 
 <body>
     <main class="d-flex flex-nowrap">
         
         <%- include('includes/sidebar.ejs') %>
-        <!-- <% if(success!='') { %>
-        <div role="alert">
-            Data has been entered Successfully
-        </div>
-        <% } %> --> 
-        
-        <div style=" flex-direction: column;">
-        <div style="width:fit-content; margin: auto;">
-        <table class="table table-hover table-sm">
+        <div style=" flex-direction: row;">
+        <div style="width:auto; margin: auto; font-size: small;">
+        <table class="table table-hover table-sm ">
           
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Facility Name</th>
-                <th scope="col">Facility Type</th>
+                <th scope="col"> Name</th>
+                <th scope="col">Type</th>
                 <th scope="col">Address</th>
                 <th scope="col">Postal code</th>
                 <th scope="col">Phone number</th>
                 <th scope="col">Web address</th>
                 <th scope="col">Capacity</th>
-                <th></th>
-                <th></th>
+                <th> <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  Create
+                </button></th>
+               
               </tr>
             
             <tbody>
               <tr>
                 <%if(data.length>0){ %>
-
                  <%data.forEach(entry =>{ %>   
                 <th scope="row"><%=entry.facility_id%></th>
                 <td><%=entry.name%></td>
-                <td><%=entry.facility_type_id%></td>
+                <td><%=entry.type%></td>
                 <td><%=entry.address%></td>
                 <td><%=entry.postal_code%></td>
                 <td><%=entry.phone_number%></td>
-                <td><%=entry.web_address%></td>
+                <td><a href= "<%=entry.web_address%>"><%=entry.web_address%></a></td>
                 <td><%=entry.capacity%></td>
-                <td><button class="btn btn-success">Edit</button></td>
-                <td><button class="btn btn-danger">Delete</button></td>
-                
-
+                <td> <a href="/facility/edit/<%=entry.facility_id%>" class="btn btn-info">Edit</a</td>
+                <td> <a href="/facility/delete/<%=entry.facility_id%>" class="btn btn-danger">Delete</a></td>
             </tr>
               <%})} else { %>
                 <th scope="row">No Data</th>
@@ -53,12 +47,76 @@
             </tbody>
           </table>
         </div>
-        <br>
+        
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          Add
+        </button>
 
-        <br>
+<!--Create Modal -->
+<div class="modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create a new Facility</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form  id="myForm" method="POST" action="/facility/post">
+          <label  style="font-family: serif;" for="fname"> Name:</label>
+          <input   style="font-family: serif;"type="text"  id="facname" name="facname" required placeholder="Facility">
+          
+          <!-- dropdown option are from the sql queries, join between facility and facility_type -->
+          
+          <label style="font-family: serif;margin-left: 3%;" for="facility">Facility Type:</label>
+          <select   style ="padding: 6px 10px;"  id="type" name="type" required>
+              <!-- for loop to retrieve data from database -->
+          <% field.forEach(entry => { %>
+          <option  value = "<%=entry.type%>"><%=entry.type%> </option>
+              <%})%>
+              
+          </select>
+      
+          <br>
+          <br>
+
+          <label  style="font-family: serif;"for="fname">Address:</label>
+          <input type="text" style="font-family: serif;"  id="address" name="address" required placeholder="Address">
+          <label  style="font-family: serif;" for="fname">Postal Code:</label>
+          <input type="text"  style="font-family: serif; margin-left: 3%" id="postalcode" name="postalcode" required placeholder="Postal Code"><br>
+          <br>
+          <label style="font-family: serif;margin-left: 3%;" for="City">City:</label>
+          <select   style ="padding: 6px 10px;"  id="city" name="city" required>
+              <!-- for loop to retrieve data from database -->
+          <% city.forEach(entry => { %>
+          <option  value = "<%=entry.name%>"><%=entry.name%> </option>
+              <%})%>
+              
+          </select>
+          <br>
+          <br>
+          <label style="font-family: serif;" for="fname">Web address:</label>
+          <input type="text" style="font-family: serif;"  id="webaddress" name="webaddress" required placeholder="Web address">
+          <label style="font-family: serif;" for="fname">Total Capacity:</label>
+          <input type="number" style="font-family: serif;"  id="Capacity" name="Capacity" required placeholder="Capacity"><br>
+          <br>
+          <label style="font-family: serif;" for="fname">Phone Number:</label>
+          <input type="tel" style="font-family: serif;"  id="phonenumber" name="phonenumber" required placeholder="Phone number"><br>
+          <br>
+          <input type="submit" class="btn btn-primary" value="Create" id="name" name="name" required><br><br>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </form>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <input type="submit" class="btn btn-primary" value="Create" id="name" name="name" required><br>
+      </div> -->
+    </div>
+  </div>
+</div>
 
 
-        <form class="facilityform" id="myForm" method="POST" action="/facility">
+
+        <form class="facilityform"  id="myForm" method="POST" action="/facility/post">
           <h2 style="font-family: serif;">Create a new Facility</h2><br>
          
               <label  style="font-family: serif;" for="fname"> Name:</label>
@@ -77,12 +135,21 @@
           
           <br>
           <br>
-          
+
           <label  style="font-family: serif;"for="fname">Address:</label>
           <input type="text" style="font-family: serif;"  id="address" name="address" required placeholder="Address">
           <label  style="font-family: serif;" for="fname">Postal Code:</label>
           <input type="text"  style="font-family: serif; margin-left: 3%" id="postalcode" name="postalcode" required placeholder="Postal Code"><br>
-          
+          <br>
+          <label style="font-family: serif;margin-left: 3%;" for="City">City:</label>
+          <select   style ="padding: 6px 10px;"  id="city" name="city" required>
+              <!-- for loop to retrieve data from database -->
+          <% city.forEach(entry => { %>
+          <option  value = "<%=entry.name%>"><%=entry.name%> </option>
+              <%})%>
+              
+          </select>
+          <br>
           <br>
           <label style="font-family: serif;" for="fname">Web address:</label>
           <input type="text" style="font-family: serif;"  id="webaddress" name="webaddress" required placeholder="Web address">
