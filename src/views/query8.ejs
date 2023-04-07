@@ -13,10 +13,41 @@
                     <li class="breadcrumb-item active" aria-current="page"> <%= pageTitle %></li>
                 </ol>
             </nav>
+            <p>For a given employee, get the details of all the schedules she/he has been scheduled during a specific period of time. Details include facility name, day of the year, start time and end time. Results should be displayed sorted in ascending order by facility name, then by day of the year, the by start time. </p>
 
-            <form action="" method="POST">
-
+            <form action="/homepage/query8/getInfo" method="GET">
+                <div class="form-group">   
+                    <label for="EID">Employee ID</label>
+                    <input type="number" class="form-control" id="EID" placeholder="Enter Employee ID" name="EID">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
+
+            <table class="table table-hover table-sm">
+                <tr>
+                    <th scope="col">Facility Name</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Start Time</th>
+                    <th scope="col">End Time</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tbody>
+                    <tr>
+                        <%if(data.length>0){ %>
+                        <%data.forEach(entry =>{  %>
+                        <td><%=entry.name%></td>
+                        <td><%=entry.Work_Date%></td>
+                        <td><%=entry.Start_Time%></td>
+                        <td><%=entry.End_Time%></td>
+                        
+                    </tr>
+                    <%})} else { %>
+                    <h1>No Data</h1>
+                    <%  }  %>
+
+                </tbody>
+            </table>
         </div>
 
 
