@@ -8,12 +8,8 @@
         <%- include('includes/Sidebar.ejs') %>
         <div class="d-flex flex-column mb-3" style="margin: 20px;">
 
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/homepage">Homepage</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"> <%= pageTitle %></li>
-                </ol>
-            </nav>
+            <%- include('includes/queryNav.ejs') %>
+
             <p>Get details of all the employees currently working in a specific facility. Details include employee’s first-name, last-name, start date of work, date of birth, Medicare card number, telephone-number, address, city, province, postal-code, citizenship, and email address. Results should be displayed sorted in ascending order by role, then by first name, then by last name</p>
 
             <form action="/homepage/query7/getInfo" method="GET">
