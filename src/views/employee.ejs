@@ -1,14 +1,243 @@
 <%- include('includes/head.ejs') %>
 <!-- link to css files -->
+<link rel="stylesheet" href="css/employee.css">
+<script defer src="js/employee.js"></script>
 </head>
 
 <body>
     <main class="d-flex flex-nowrap">
         <%- include('includes/sidebar.ejs') %>
         <div class="d-flex flex-column mb-3" style="margin: 20px;">
-            <h1>Employee</h1>
-        </div>
+            <div class="d-flex justify-content-between">
+                <h1>Employee</h1>
+            </div>
+            <div class="d-flex justify-content-center">
+                <table id="employee_table" class="table table-hover" style="width:100%">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">Emp_ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Date of Birth</th>
+                            <th>Medical Card Number</th>
+                            <th>Citizenship</th>
+                            <th>Occupation</th>
+                            <th>Address Line</th>
+                            <th>Postal Code</th>
+                            <th>Telephone Number</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (employee.length >  0) {%>
+                        <% for (let emp of employee) {%>
+                        <tr>
+                            <td><%= emp.employee_id %></td>
+                            <td><%= emp.first_name%></td>
+                            <td><%= emp.last_name%></td>
+                            <td><%= emp.email%></td>
+                            <td><%= emp.date_of_birth%></td>
+                            <td><%= emp.medical_card_number%></td>
+                            <td><%= emp.is_citizenship%></td>
+                            <td><%= emp.occupation%></td>
+                            <td><%= emp.Address_line%></td>
+                            <td><%= emp.Postal_Code%></td>
+                            <td><%= emp.telephone_number%></td>
+                        </tr>
+                        <% }%>
+                        <% }%>
+                    </tbody>
+                </table>
+            </div>
 
+            <div class="d-flex flex-row" style="gap: 10px;">
+                <button type="button" class="btn btn-primary" id="btnAdd" data-bs-toggle="modal" data-bs-target="#addModal">Add</button>
+                <button type="button" class="btn btn-info" disabled id="btnEdit" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
+                <button type="button" class="btn btn-danger" disabled id="btnDelete" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+            </div>
+
+            <!-- Modal Add -->
+            <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="false">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="addModalLabel">Add Employee</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="firstNameAdd" placeholder="First Name" required>
+                                        <label for="firstNameAdd">First Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="lastNameAdd" placeholder="Last name" required>
+                                        <label for="lastNameAdd">Last Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="email" class="form-control" id="emailAdd" placeholder="email">
+                                        <label for="emailAdd">Email address</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="medCardNumAdd" placeholder="medical card number">
+                                        <label for="medCardNumAdd">Medical card number</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="telephoneAdd" placeholder="medical card number">
+                                        <label for="telephoneAdd">Telephone Number</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="form-floating">
+                                        <input type="date" class="form-control" id="dobAdd" name="Date" placeholder="date of birth">
+                                        <label for="dobAdd">Date of Birth</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-floating">
+                                        <input type="number" class="form-control" id="occupationAdd" placeholder="Enter" name="VType">
+                                        <label for="occupationAdd">Occupation (1-10)</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="addressAdd" placeholder="fat">
+                                        <label for="medCardNumAdd">Address Line</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="postalCodeAdd" placeholder="sad">
+                                        <label for="medCardNumAdd">Postal Code</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-check ">
+                                        <input class="form-check-input" type="checkbox" value="" id="citizenshipAdd">
+                                        <label class="form-check-label" for="citizenshipAdd">
+                                            Citizenship
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="btnCreateEmp">Create</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Edit -->
+            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="false">
+                <div class="modal-dialog ">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="editModalLabel">Edit Employee</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="text" id="empIdEdit" hidden>
+                            <div class="row mb-3">
+                                <label for="firstNameEdit" class="col-sm-3 col-form-label">First Name</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="firstNameEdit">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="lastNameEdit" class="col-sm-3 col-form-label">Last Name</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="lastNameEdit">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="emailEdit" class="col-sm-3 col-form-label">Email</label>
+                                <div class="col-sm-9">
+                                    <input type="email" class="form-control" id="emailEdit">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="dobEdit" class="col-sm-3 col-form-label">Date of Birth</label>
+                                <div class="col-sm-9">
+                                    <input type="date" class="form-control" id="dobEdit" placeholder="Date of birth" name="Date">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="medCardNumEdit" class="col-sm-3 col-form-label">Medical Card Number</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="medCardNumEdit">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="occupationIdEdit" class="col-sm-3 col-form-label">Occupation</label>
+                                <div class="col-sm-9">
+                                    <input type="number" class="form-control" id="occupationIdEdit" placeholder="Enter between 1 to 10" name="VType">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="addressEdit" class="col-sm-3 col-form-label">Address Line</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="addressEdit">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="postalCodeEdit" class="col-sm-3 col-form-label">Postal Code</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="postalCodeEdit">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="telephoneEdit" class="col-sm-3 col-form-label">Telephone number</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="telephoneEdit" value="514">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label for="citizenshipEdit" class="col-sm-3 col-form-label">Citizenship</label>
+                                <div class="col-sm-9 d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="citizenshipEdit">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="btnSaveEdit">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Delete -->
+            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="false">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header-danger">
+                            <h1 class="modal-title fs-5" id="deleteModalLabel">Are you sure?</h1>
+                            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+                            <button type="button" class="btn btn-outline-danger" id="btnDeleteConfirmation">Yes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
     </main>
+
 
     <%- include('includes/end.ejs') %>

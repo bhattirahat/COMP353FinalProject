@@ -1,0 +1,58 @@
+<%- include('includes/head.ejs') %>
+<!-- link to css files -->
+</head>
+
+<body>
+    <main class="d-flex flex-nowrap">
+        <%- include('includes/Sidebar.ejs') %>
+        <div class="d-flex flex-column mb-3" style="margin: 20px;">
+
+            <%- include('includes/queryNav.ejs') %>
+            <p>For a given facility, give the total hours scheduled for every role during a specific period. Results should be displayed in ascending order by role.</p>
+
+            <form action="/homepage/query12/getInfo" method="GET">
+                <div class="form-group">
+                    <label for="FID">Facility ID</label>
+                    <input type="number" class="form-control" id="FID" placeholder="Facility ID" name="FID">
+                </div>
+                <div class="form-group">
+                    <div class="form-group">
+                        <label for="SDate">Start Date</label>
+                        <input type="date" class="form-control" id="SDate" placeholder="yyyy-mm-dd" name="SDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="EDate">End Date</label>
+                        <input type="date" class="form-control" id="EDate" placeholder="yyyy-mm-dd" name="EDate">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+            <table class="table table-hover table-sm">
+                <tr>
+                    <th scope="col">Role</th>
+                    <th scope="col">Total Hours</th>
+
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tbody>
+                    <tr>
+                        <%if(data.length>0){ %>
+                        <%data.forEach(entry =>{  %>
+                        <td><%=entry.Role%></td>
+                        <td><%=entry.Total_Hours%></td>
+
+
+                    </tr>
+                    <%})} else { %>
+                    <h1>No Data</h1>
+                    <%  }  %>
+
+                </tbody>
+            </table>
+        </div>
+
+
+    </main>
+
+    <%- include('includes/end.ejs') %>
