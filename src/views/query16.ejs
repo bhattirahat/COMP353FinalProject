@@ -13,10 +13,45 @@
                     <li class="breadcrumb-item active" aria-current="page"> <%= pageTitle %></li>
                 </ol>
             </nav>
+            <p>For a given facility, give the total hours scheduled for every role during a specific period. Results should be displayed in ascending order by role.</p>
 
-            <form action="" method="POST">
-
+            <form action="/homepage/query16/getInfo" method="GET">
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
+
+            <table class="table table-hover table-sm">
+                <tr>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">First Day</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">DoB</th>
+                    <th scope="col">Total Hours</th>
+
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tbody>
+                    <tr>
+                        <%if(data.length>0){ %>
+                        <%data.forEach(entry =>{  %>
+                        <td><%=entry.first_name%></td>
+                        <td><%=entry.last_name%></td>
+                        <td><%=entry.First_Day%></td>
+                        <td><%=entry.Type%></td>
+                        <td><%=entry.email%></td>
+                        <td><%=entry.date_of_birth%></td>
+                        <td><%=entry.Total_Hours%></td>
+
+                        
+                    </tr>
+                    <%})} else { %>
+                    <h1>No Data</h1>
+                    <%  }  %>
+
+                </tbody>
+            </table>
         </div>
 
 
