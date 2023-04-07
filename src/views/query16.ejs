@@ -7,12 +7,7 @@
         <%- include('includes/Sidebar.ejs') %>
         <div class="d-flex flex-column mb-3" style="margin: 20px;">
 
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/homepage">Homepage</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"> <%= pageTitle %></li>
-                </ol>
-            </nav>
+            <%- include('includes/queryNav.ejs') %>
             <p>For a given facility, give the total hours scheduled for every role during a specific period. Results should be displayed in ascending order by role.</p>
 
             <form action="/homepage/query16/getInfo" method="GET">
@@ -44,7 +39,7 @@
                         <td><%=entry.date_of_birth%></td>
                         <td><%=entry.Total_Hours%></td>
 
-                        
+
                     </tr>
                     <%})} else { %>
                     <h1>No Data</h1>

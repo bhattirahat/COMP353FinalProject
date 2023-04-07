@@ -7,12 +7,7 @@
         <%- include('includes/Sidebar.ejs') %>
         <div class="d-flex flex-column mb-3" style="margin: 20px;">
 
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/homepage">Homepage</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"> <%= pageTitle %></li>
-                </ol>
-            </nav>
+            <%- include('includes/queryNav.ejs') %>
 
             <form action="" method="POST">
 

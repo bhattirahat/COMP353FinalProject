@@ -28,11 +28,12 @@ router.get('/query7', async (req, res, next) => {
         .status(StatusCode.SuccessOK)
         .render('query7', {
             pageTitle: 'Query 7',
-            data:[]
+            data: []
         })
 })
+
 router.get('/query7/getInfo', async (req, res, next) => {
-    FID=req.query.FID
+    FID = req.query.FID
     //console.log(req.query.FID)
     getInfo = `select t1.first_name,t1.last_name,t2.Start_Date,t1.date_of_birth as "DOB",t1.medical_card_number,t4.telephone_number,t5.Address_line,t7.name as"City", t8.name as "Province",t6.Postal_Code, t1.is_citizenship, t1.email
     from Employee t1
@@ -61,22 +62,22 @@ router.get('/query7/getInfo', async (req, res, next) => {
                         success: '',
                         data: result,
                         field: totaltype
-                    }) 
+                    })
             }
-            else{
+            else {
                 res
                     .status(StatusCode.SuccessOK)
                     .render('query7', {
-                    pageTitle: 'Query 7',
-                    data:[]
-        })
+                        pageTitle: 'Query 7',
+                        data: []
+                    })
             }
             // conn.end();
         });
     }).catch(err => {
         console.log(err)
     })
-    
+
 })
 
 router.get('/query8', async (req, res, next) => {
@@ -84,13 +85,14 @@ router.get('/query8', async (req, res, next) => {
         .status(StatusCode.SuccessOK)
         .render('query8', {
             pageTitle: 'Query 8',
-            data:[]
+            data: []
         })
 })
+
 router.get('/query8/getInfo', async (req, res, next) => {
-    EID=req.query.EID
+    EID = req.query.EID
     console.log(EID)
-    getInfo=`select t2.name, t1.Work_Date,t1.Start_Time,t1.End_Time
+    getInfo = `select t2.name, t1.Work_Date,t1.Start_Time,t1.End_Time
     from Employee_Schedule t1
     Inner Join Facility t2 on t1.facility_id = t2.facility_id
     where employee_id="${EID}"
@@ -110,15 +112,15 @@ router.get('/query8/getInfo', async (req, res, next) => {
                         success: '',
                         data: result,
                         field: totaltype
-                    }) 
+                    })
             }
-            else{
+            else {
                 res
                     .status(StatusCode.SuccessOK)
                     .render('query8', {
                         pageTitle: 'Query 8',
-                        data:[]
-                })
+                        data: []
+                    })
             }
             // conn.end();
         });
@@ -156,17 +158,17 @@ router.get('/query12', async (req, res, next) => {
         .status(StatusCode.SuccessOK)
         .render('query12', {
             pageTitle: 'Query 12',
-            data:[]
+            data: []
         })
 })
 router.get('/query12/getInfo', async (req, res, next) => {
-    SDate=req.query.SDate
+    SDate = req.query.SDate
     //console.log(SDate)
-    EDate=req.query.EDate
+    EDate = req.query.EDate
     //console.log(EDate)
-    FID=req.query.FID
+    FID = req.query.FID
     //console.log(FID)
-    getInfo=`select Occupation.Type as "Role",Sum(Hours) as "Total_Hours"
+    getInfo = `select Occupation.Type as "Role",Sum(Hours) as "Total_Hours"
     from Employee_Schedule 
     Inner Join Employee on (Employee_Schedule.employee_id=Employee.employee_id) 
     Inner Join Occupation on (Employee.occupation_id=Occupation.occupation_id) 
@@ -188,15 +190,15 @@ router.get('/query12/getInfo', async (req, res, next) => {
                         success: '',
                         data: result,
                         field: totaltype
-                    }) 
+                    })
             }
-            else{
+            else {
                 res
                     .status(StatusCode.SuccessOK)
                     .render('query12', {
                         pageTitle: 'Query 12',
-                        data:[]
-                })
+                        data: []
+                    })
             }
             // conn.end();
         });
@@ -234,11 +236,12 @@ router.get('/query16', async (req, res, next) => {
         .status(StatusCode.SuccessOK)
         .render('query16', {
             pageTitle: 'Query 16',
-            data:[]
+            data: []
         })
 })
+
 router.get('/query16/getInfo', async (req, res, next) => {
-    getInfo=`select t1.first_name, t1.last_name,t4.Type,t1.email,t1.date_of_birth,Sum(t2.Hours) as "Total_Hours", min(t5.Start_Date) as "First_Day"
+    getInfo = `select t1.first_name, t1.last_name,t4.Type,t1.email,t1.date_of_birth,Sum(t2.Hours) as "Total_Hours", min(t5.Start_Date) as "First_Day"
     from Employee t1
     INNER JOIN Employee_Schedule t2 ON t1.employee_id = t2.employee_id 
     INNER JOIN Occupation t4 ON t1.occupation_id = t4.occupation_id
@@ -267,15 +270,15 @@ router.get('/query16/getInfo', async (req, res, next) => {
                         success: '',
                         data: result,
                         field: totaltype
-                    }) 
+                    })
             }
-            else{
+            else {
                 res
                     .status(StatusCode.SuccessOK)
                     .render('query16', {
                         pageTitle: 'Query 16',
-                        data:[]
-                })
+                        data: []
+                    })
             }
             // conn.end();
         });
