@@ -5,50 +5,50 @@
 <body>
     <main class="d-flex flex-nowrap">
         <%- include('includes/sidebar.ejs') %>
-
-        <div class="d-flex flex-column mb-3" style="margin: 20px;">
-            <h1>Query6</h1>
+        <div class="d-flex flex-column mb-3">
             <table class="table table-hover table-sm ">
-          
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col"> Name</th>
-                  <th scope="col">Address</th>
-                  <th scope="col">City</th>
-                  <th scope="col">Province</th>
-                  <th scope="col">Postal Code</th>
-                  <th scope="col">Phone Number</th>
-                  <th scope="col">Web Address</th>
-                  <th scope="col">Type</th>
-                  <th scope="col">Capacity</th>
-                  <th scope="col">General Manager</th>
-                  <th scope="col"># of Employee</th>
-                </tr>
-              <tbody>
-                <tr>
-                    <%if(data.length>0){ %>
-                        <%data.forEach(entry =>{ console.log(entry) %>
-                        <th id="test" data-test="<%=entry.facility_id%>" scope="row"><%= entry.facility_id%></th>
-                        <td><%=entry.name%></td>
-                        <!-- <td><%=entry.name%></td> -->
-                        <!-- <td><%=entry.address%></td>
-                        <td><%=entry.City%></td>
-                        <td><%=entry.Province%></td>
-                        <td><%=entry.postal_code%></td>
-                        <td><%=entry.phone_number%></td>
-                        <td><a href= "<%=entry.web_address%>"><%=entry.web_address%></a></td>
-                        <td><%=entry.type%></td>
-                        <td><%=entry.capacity%></td>
-                        <td><%=entry.General_Manager%></td>
-                        <td><%=entry.curr_num_workers%></td> -->
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>Province</th>
+                <th>Postal Code</th>
+                <th>Phone number</th>
+                <th>Web address</th>
+                <th>Type</th>
+                <th>Capacity</th>
+                <th>General Manager</th>
+                <th># of Employee</th>
               </tr>
-                <%})} %>
-              </tbody>
-            </table>
+            <tbody>
+              <tr>
+                <%if(data.length>0){ %>
+                 <%data.forEach(entry =>{ %>   
+                <th ><%=entry.facility_id%></th>
+                 <th><%=entry.name%></th>
+                <th><%=entry.address%></th>
+                  <th><%=entry.City%></th>
+                  <th><%=entry.Province%></th>
+                  <th><%=entry.postal_code%></th>
+                  <th><%=entry.phone_number%></th>
+                  <th><%=entry.web_address%></th>
+                  <th><%=entry.type%></th>
+                  <th><%=entry.capacity%></th>
+                  <th><%=entry.General_Manager%></th>
+                  <th><%=entry.curr_num_workers%></th>
 
 
+                
+            </tr>
+              <%})} else { %>
+                <th scope="row">No Data</th>
+              <%  }  %>
+            </tbody>
+          </table>
         </div>
 
     </main>
+
 
     <%- include('includes/end.ejs') %>
