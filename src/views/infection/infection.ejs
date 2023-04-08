@@ -27,7 +27,7 @@
                                 <td><%=entry.type%></td>
                                 <td><%=entry.employee_id%></td>
                                 <td><%=entry.date%></td>
-                                <td><a href='/infection/edit/<%= entry.infection_id%>'>Edit</a></td>
+                                <td><a href='/infection/edit/<%= entry.infection_id %>?employee_id=<%= entry.employee_id %>'>Edit</a></td>
                                 <td> <button id="deletebtn-<%= entry.infection_id %>" class="btn btn-danger buttons">Delete</button> </td>
                             </tr>
                             <%})}%>

@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
 
 // Render Infection add form page
 router.get('/add', async (req, res, next) => {
-    res.render('infection/infection-add', {
+    res.render('infection/add', {
         pageTitle: 'Infection Add'
     })
 })
@@ -52,6 +52,7 @@ router.post('/add', async (req, res, next) => {
             )
         }
     )
+    res.redirect('/infection')
 })
 
 // DELETE Infection by ID
@@ -68,5 +69,37 @@ router.delete('/:id', (req, res) => {
     res.json({ message: "Deleted with success" });
 })
 
+// Render Infection edit form page
+router.get('/edit/:id', async (req, res, next) => {
+    res.render('infection/edit', {
+        pageTitle: 'Infection Edit',
+        infection_id: req.params.id,
+        employee_id: req._parsedUrl["query"].split("=")[1]
+    })
+});
+
+// EDIT Infection By ID
+router.post('/edit/:id', async (req, res, next) => {
+    let getInfectionTypeIdFetch = `SELECT infection_type_id FROM infection_type WHERE type="${req.body.infection_type}"`
+        // Get infection type ID
+        db.execute(
+            getInfectionTypeIdFetch,
+            function(err, data) {
+                if(err) throw err;
+                updateById = `UPDATE infection SET infection_type_id = ${data[0]["infection_type_id"]}, date="${req.body.date}", employee_id=${req.body.employee_id} where infection_id=${req.body.infection_id};`
+ 
+                // Edit an infection
+                db.execute(
+                    updateById,
+                    function(err, data) {
+                        if(err) throw err;
+                        console.log(`Infection ${req.body.infection_id}'s data has been updated for employee with ID: ${req.body.employee_id}`);
+                    }
+                )
+            }
+        )
+
+    res.redirect('/infection')
+})
 
 module.exports = router;
