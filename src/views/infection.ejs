@@ -1,14 +1,61 @@
 <%- include('includes/head.ejs') %>
-<!-- link to css files -->
 </head>
 
 <body>
     <main class="d-flex flex-nowrap">
-        <%- include('includes/sidebar.ejs') %>
+        <%- include('includes/Sidebar.ejs') %>
         <div class="d-flex flex-column mb-3" style="margin: 20px;">
             <h1>Infection</h1>
+            <div style=" flex-direction: column;">
+                <div style="width:fit-content; margin: auto;">
+                    <table id="infection_table" class="table table-striped table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Employee ID</th>
+                                <th scope="col">Date</th>
+                                <th><a href='/infection/add'>Add</a></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%if(data.length>0){ %>
+                            <%data.forEach(entry =>{  %>
+                            <tr>
+                                <td id="test" data-test="<%=entry.Infection_id%>" scope="row"><%=entry.Infection_id%></td>
+                                <td><%=entry.type%></td>
+                                <td><%=entry.employee_id%></td>
+                                <td><%=entry.date%></td>
+                                <td><a href='/infection/edit/<%= entry.Infection_id%>'>Edit</a></td>
+                                <td> <button id="deletebtn-<%= entry.Infection_id %>" class="btn btn-danger buttons">Delete</button> </td>
+                            </tr>
+                            <%})}%>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <br>
+            </div>
         </div>
     </main>
 
-
-    <%- include('includes/end.ejs') %>
+<script>
+    let buttons = document.querySelectorAll('.buttons')
+    buttons.forEach((buttons) => {
+        buttons.addEventListener('click', (e) => {
+             
+            const id = buttons.id.split('-')[1]
+ 
+            fetch(`/infection/${id}`, {
+                    method: 'DELETE',
+                })
+                .then((response) => response.text())
+                .then(data => window.location.reload())
+                .catch(error => {
+                    console.error(error)
+                })
+        })
+    })
+</script>
+<%- include('includes/end.ejs') %>
