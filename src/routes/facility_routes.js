@@ -125,41 +125,14 @@ router.get('/delete/:id',async(req,res,next)=>{
     })
 })
 
-router.get('/:id',async(req,res,next)=>{
- 
-    let id = req.params.id  
-    getData = `Select * from Facility where facility_id = ${id};`
-    getFacilityType =`SELECT type from Facility_Type;`
-    getCities = `Select City.name from City;`
 
-    total = getData+getFacilityType+getCities
-
-    db.then(conn => {
-        conn.query(total, (err, result, fields) => {
-            if (err) {
-                throw err;
-            }
-            console.log("SQL Query Result-- ", result);
-            if (result.length !== 0) {
-                result = result[0];
-                totaltype = result[1]
-                res.render('facilityEdit',{data:result[0],field:totaltype,city:result[2]})
-            }
-            // conn.end();
-        });
-    }).catch(err => {
-        console.log("error is "+err)
-    })
-    
-})
 router.get('/edit/:id',async(req,res,next)=>{
  
     let id = req.params.id  
     getData = `Select * from Facility where facility_id = ${id};`
     getFacilityType =`SELECT type from Facility_Type;`
-    getCities = `Select City.name from City;`
-
-    total = getData+getFacilityType+getCities
+    
+    total = getData+getFacilityType
 
     db.then(conn => {
         conn.query(total, (err, result, fields) => {
@@ -170,7 +143,7 @@ router.get('/edit/:id',async(req,res,next)=>{
             if (result.length !== 0) {
                 result = result[0];
                 totaltype = result[1]
-                res.render('facilityEdit',{data:result[0],field:totaltype,city:result[2]})
+                res.render('facilityEdit',{ pageTitle:"Edit",data:result[0],field:totaltype})
             }
             // conn.end();
         });
@@ -180,6 +153,35 @@ router.get('/edit/:id',async(req,res,next)=>{
     
 })
 
+router.post('/edit/:id',async(req,res,next)=>{
+    
+
+    editquery = 
+    `Update Facility set name = "${req.body.facname}",
+    address ="${req.body.address}",
+    postal_code = "${req.body.postalcode}",
+    phone_number = "${req.body.phonenumber}",
+    web_address = "${req.body.webaddress}",
+    capacity = ${req.body.Capacity}
+    where facility_id = ${req.params.id};`
+
+    db.then(conn => {
+        conn.query(editquery, (err, result, fields) => {
+            if (err) {
+                throw err;
+            }
+            console.log("SQL Query Result-- ", result);
+            if (result.length !== 0) {
+                result = result[0];
+                res.redirect('/facility')
+            }
+            // conn.end();
+        });
+    }).catch(err => {
+        console.log("error is "+err)
+    })
+  
+})
 
 
 

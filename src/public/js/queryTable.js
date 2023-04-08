@@ -2,7 +2,13 @@ $(document).ready(function () {
     $('#query7_table').DataTable({
         stateSave: true,
     });
-
+    
+    $('#query6_table').DataTable({
+        stateSave: true,
+    });
+    $('#query11_table').DataTable({
+        stateSave: true,
+    });
     $('#vaccination_table').DataTable({
         stateSave: true,
         columnDefs: [
@@ -21,3 +27,4 @@ $(document).ready(function () {
         ]
     });
 });
+

@@ -184,8 +184,61 @@ router.get('/query11', async (req, res, next) => {
     res
         .status(StatusCode.SuccessOK)
         .render('query11', {
-            pageTitle: 'Query 11'
+            pageTitle: 'Query 11',
+            data: []
         })
+})
+
+router.get('/query11/getInfo', async (req, res, next) => {
+
+    facility_id = req.query.FCL;
+    
+    console.log(facility_id)
+
+    getInfo = `
+    select ES.employee_id, Employee.first_name, Employee.last_name, Occupation.Type, ES.facility_id,ES.Work_Date
+    FROM Employee_Schedule as ES
+    join Employee on ES.employee_id = Employee.employee_id
+    join Occupation on Employee.occupation_id = Occupation.occupation_id
+    where 
+    (Occupation.Type = "Doctor" or Occupation.Type = "Nurse") and 
+    Work_Date >= DATE_SUB(CURDATE(), INTERVAL 2 WEEK) and
+    ES.facility_id = "${facility_id}"
+    group by Employee_id
+    order by Occupation.Type, Employee.first_name;`
+    console.log(getInfo)
+    db.then(conn => {
+        conn.query(getInfo, (err, result, fields) => {
+            if (err) {
+                throw err;
+            }
+            console.log("SQL Query Result-- ", result);
+            if (result.length !== 0) {
+                console.log(result)
+                res.status(StatusCode.SuccessOK)
+                    .render('query11', {
+                        pageTitle: 'Query 11',
+                        success: '',
+                        data: result,
+                        
+                    })
+            }
+            else {
+                res
+                    .status(StatusCode.SuccessOK)
+                    .render('query11', {
+                        pageTitle: 'Query 11',
+                        data: []
+                    })
+            }
+            // conn.end();
+        });
+    }).catch(err => {
+        console.log(err)
+    })
+
+
+   
 })
 
 router.get('/query12', async (req, res, next) => {
@@ -251,19 +304,106 @@ router.get('/query13', async (req, res, next) => {
 })
 
 router.get('/query14', async (req, res, next) => {
-    res
-        .status(StatusCode.SuccessOK)
-        .render('query14', {
-            pageTitle: 'Query 14'
-        })
+
+    getInfo = `select Es.employee_id, Employee.first_name, Employee.last_name,
+    count(Distinct Es.facility_id) as N_OF_Facility,
+    City.name as City,
+    Occupation.Type
+    from Employee_Schedule as Es
+    join Facility on Facility.facility_id = Es.facility_id
+    join PostalCode on PostalCode.postal_code =Facility.postal_code
+    join City on PostalCode.city_id = City.city_id
+    join Province on Province.province_id  = City.province_id
+    --
+    join Employee on  Es.employee_id = Employee.employee_id
+    join Occupation on Employee.occupation_id = Occupation.occupation_id
+    --
+    join Employee_Address on Employee_Address.employee_id = Employee.employee_id
+    join PostalCode as PC on Employee_Address.Postal_Code = PC.postal_code
+    join City AS CT on PC.city_id = CT.city_id
+    
+    where Province.name = "Quebec" and Occupation.Type = "Doctor"
+    GROUP BY Es.employee_id
+    order by City Asc, N_OF_Facility DESC;
+    `
+
+
+    db.then(conn => {
+        conn.query(getInfo, (err, result, fields) => {
+            if (err) {
+                throw err;
+            }
+            console.log("SQL Query Result-- ", result);
+            if (result.length !== 0) {
+                console.log(result)
+                totaltype = result[1]
+            
+                res.status(StatusCode.SuccessOK)
+                    .render('query14', {
+                        pageTitle: 'Query 14',
+                        success: '',
+                        data: result,
+                        
+                    })
+            }
+            else {
+                res
+                    .status(StatusCode.SuccessOK)
+                    .render('query14', {
+                        pageTitle: 'Query 14',
+                        data: []
+                    })
+            }
+            // conn.end();
+        });
+    }).catch(err => {
+        console.log(err)
+    })
 })
 
 router.get('/query15', async (req, res, next) => {
-    res
-        .status(StatusCode.SuccessOK)
-        .render('query15', {
-            pageTitle: 'Query 15'
-        })
+    query =
+        `select t2.first_name,  t2.last_name, t1.Start_Date,  t2.date_of_birth, t2.email, SUM(t3.End_time - t3.Start_time) as Total_hours_worked
+        from Work_At t1
+        inner join Employee t2 on t1.employee_id = t2.employee_id
+        inner join History_Schedule t3 on t1.employee_id = t3.employee_id
+        where t2.occupation_id = 1 and (t1.End_Date is Null or t1.End_Date >= current_date())
+        group by t1.employee_id
+        having SUM(t3.End_time - t3.Start_time) = 
+        (select SUM(t3.End_time - t3.Start_time)
+        from Work_At t1
+        inner join Employee t2 on t1.employee_id = t2.employee_id
+        inner join History_Schedule t3 on t1.employee_id = t3.employee_id
+        where t2.occupation_id = 1 and (t1.End_Date is Null or t1.End_Date >= current_date()))
+        
+           `
+    db.then(conn => {
+        conn.query(query, (err, result, fields) => {
+            if (err) {
+                throw err;
+            }
+            console.log("SQL Query Result-- ", result);
+            if (result.length !== 0) {
+                queryresult = result[0];
+                res.status(StatusCode.SuccessOK)
+                    .render('query15', {
+                        pageTitle: "Query15",
+                        data: result,
+                        field: queryresult
+                    })
+            } else {
+                queryresult = result[0];
+                res.status(StatusCode.SuccessOK)
+                    .render('query15', {
+                        pageTitle: "Query15",
+                        data: []
+                    })
+            }
+            // conn.end();
+        });
+    }).catch(err => {
+        console.log("error is " + err)
+    })
 })
 
 router.get('/query16', async (req, res, next) => {

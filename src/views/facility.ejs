@@ -48,9 +48,7 @@
           </table>
         </div>
         
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-          Add
-        </button>
+        
 
 <!--Create Modal -->
 <div class="modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -62,49 +60,51 @@
       </div>
       <div class="modal-body">
         <form  id="myForm" method="POST" action="/facility/post">
+          <div class="form-group">
           <label  style="font-family: serif;" for="fname"> Name:</label>
-          <input   style="font-family: serif;"type="text"  id="facname" name="facname" required placeholder="Facility">
-          
+          <input   class="form-control"  style="font-family: serif;"type="text"  id="facname" name="facname" required placeholder="Enter A Facility">
+          </div>
           <!-- dropdown option are from the sql queries, join between facility and facility_type -->
-          
-          <label style="font-family: serif;margin-left: 3%;" for="facility">Facility Type:</label>
-          <select   style ="padding: 6px 10px;"  id="type" name="type" required>
-              <!-- for loop to retrieve data from database -->
-          <% field.forEach(entry => { %>
-          <option  value = "<%=entry.type%>"><%=entry.type%> </option>
-              <%})%>
-              
-          </select>
-      
-          <br>
-          <br>
+           <div class="form-group">
+            <label style="font-family: serif;" for="facility">Facility Type:</label>
+                <select  class="form-select" style ="padding: 6px 10px;"  id="type" name="type" required>
+                    <!-- for loop to retrieve data from database -->
+                  <% field.forEach(entry => { %>
+                      <option   value = "<%=entry.type%>"><%=entry.type%> </option>
+                    <%})%>
+                </select>
+           </div>
 
-          <label  style="font-family: serif;"for="fname">Address:</label>
-          <input type="text" style="font-family: serif;"  id="address" name="address" required placeholder="Address">
-          <label  style="font-family: serif;" for="fname">Postal Code:</label>
-          <input type="text"  style="font-family: serif; margin-left: 3%" id="postalcode" name="postalcode" required placeholder="Postal Code"><br>
-          <br>
-          <label style="font-family: serif;margin-left: 3%;" for="City">City:</label>
-          <select   style ="padding: 6px 10px;"  id="city" name="city" required>
-              <!-- for loop to retrieve data from database -->
-          <% city.forEach(entry => { %>
-          <option  value = "<%=entry.name%>"><%=entry.name%> </option>
-              <%})%>
-              
-          </select>
-          <br>
-          <br>
-          <label style="font-family: serif;" for="fname">Web address:</label>
-          <input type="text" style="font-family: serif;"  id="webaddress" name="webaddress" required placeholder="Web address">
-          <label style="font-family: serif;" for="fname">Total Capacity:</label>
-          <input type="number" style="font-family: serif;"  id="Capacity" name="Capacity" required placeholder="Capacity"><br>
-          <br>
+      
+                <div class="form-group">
+                  <label  style="font-family: serif;"for="fname">Address:</label>
+                  <input  class="form-control" type="text" style="font-family: serif;"  id="address" name="address" required placeholder="Address">
+                </div>
+                <div class="form-group">
+                    <label  style="font-family: serif;" for="fname">Postal Code:</label>
+                    <input type="text"   class="form-control" style="font-family: serif;" id="postalcode" name="postalcode" required placeholder="Postal Code">
+                </div>
+         
+                <div class="form-group">
           <label style="font-family: serif;" for="fname">Phone Number:</label>
-          <input type="tel" style="font-family: serif;"  id="phonenumber" name="phonenumber" required placeholder="Phone number"><br>
-          <br>
+          <input type="tel"  class="form-control"style="font-family: serif;"  id="phonenumber" name="phonenumber" required placeholder="Phone number">
+                </div>
+
+                <div class="form-group">
+          <label style="font-family: serif;" for="fname">Web address:</label>
+          <input type="text"   class="form-control" style="font-family: serif;"  id="webaddress" name="webaddress" required placeholder="Web address">
+                </div>
+
+                <div class="form-group">
+          <label style="font-family: serif;" for="fname">Total Capacity:</label>
+          <input type="number" class="form-control" style="font-family: serif;"  id="Capacity" name="Capacity" required placeholder="Capacity"><br>
+                </div>
+                
           <input type="submit" class="btn btn-primary" value="Create" id="name" name="name" required><br><br>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          </form>
+          <button type="button"  class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                
+        </form>
+
       </div>
       <!-- <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -116,52 +116,7 @@
 
 
 
-        <form class="facilityform"  id="myForm" method="POST" action="/facility/post">
-          <h2 style="font-family: serif;">Create a new Facility</h2><br>
-         
-              <label  style="font-family: serif;" for="fname"> Name:</label>
-              <input   style="font-family: serif;"type="text"  id="facname" name="facname" required placeholder="Facility">
-              
-              <!-- dropdown option are from the sql queries, join between facility and facility_type -->
-              
-              <label style="font-family: serif;margin-left: 3%;" for="facility">Facility Type:</label>
-              <select   style ="padding: 6px 10px;"  id="type" name="type" required>
-                  <!-- for loop to retrieve data from database -->
-              <% field.forEach(entry => { %>
-              <option  value = "<%=entry.type%>"><%=entry.type%> </option>
-                  <%})%>
-                  
-              </select>
-          
-          <br>
-          <br>
-
-          <label  style="font-family: serif;"for="fname">Address:</label>
-          <input type="text" style="font-family: serif;"  id="address" name="address" required placeholder="Address">
-          <label  style="font-family: serif;" for="fname">Postal Code:</label>
-          <input type="text"  style="font-family: serif; margin-left: 3%" id="postalcode" name="postalcode" required placeholder="Postal Code"><br>
-          <br>
-          <label style="font-family: serif;margin-left: 3%;" for="City">City:</label>
-          <select   style ="padding: 6px 10px;"  id="city" name="city" required>
-              <!-- for loop to retrieve data from database -->
-          <% city.forEach(entry => { %>
-          <option  value = "<%=entry.name%>"><%=entry.name%> </option>
-              <%})%>
-              
-          </select>
-          <br>
-          <br>
-          <label style="font-family: serif;" for="fname">Web address:</label>
-          <input type="text" style="font-family: serif;"  id="webaddress" name="webaddress" required placeholder="Web address">
-          <label style="font-family: serif;" for="fname">Total Capacity:</label>
-          <input type="number" style="font-family: serif;"  id="Capacity" name="Capacity" required placeholder="Capacity"><br>
-          <br>
-          <label style="font-family: serif;" for="fname">Phone Number:</label>
-          <input type="tel" style="font-family: serif;"  id="phonenumber" name="phonenumber" required placeholder="Phone number"><br>
-          <br>
-
-          <input type="submit"  class="btn btn-primary" value="Create" id="name" name="name" required><br>
-      </form>
+        
       </div>
       
     </main>
