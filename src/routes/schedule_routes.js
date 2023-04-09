@@ -36,29 +36,18 @@ router.get('/add', async (req, res, next) => {
 
     })
 })
-
 // CREATE Schedule from schedule-add page  
 router.post('/add', async (req, res, next) => {
+    console.log(req.body.employee_id)
     // Get Schedule ID
+    var scheduleCreate = `INSERT INTO Employee_Schedule (employee_id, facility_id, Work_Date, Start_Time, End_Time, Hours) VALUES ("${req.body.employee_id}", "${req.body.facility_id}", "${req.body.work_date}", "${req.body.start_time}", "${req.body.end_time}", "${req.body.hours}")`;
     db.then(conn => {
-        if (result.length !== 0) {
-            if (result.length !== 0) {
-                var scheduleCreate = `INSERT INTO Employee_Schedule (employee_id, facility_id, Work_Date, Start_Time, End_Time, Hours) VALUES ("${req.body.employee_id}", ${req.body.facility_id}, ${req.body.work_date}, ${req.body.start_time}, ${req.body.end_time}, ${req.body.hours})`;
-
-                conn.query(scheduleCreate, (err, result, fields) => {
-                    if (err) {
-                        throw err;
-                    }
-                    if (result.length !== 0) {
-                        console.log(`A new employee schedule was registered for employee with ID: ${req.body.employee_id}`);
-                    }
-                });
-            }
-        }
+        conn.query(scheduleCreate)
+        res.redirect('/schedule')
     }).catch(err => {
         console.log(err)
     })
-    res.redirect('/schedule')
+    
 })
 
 // DELETE Schedule by ID
