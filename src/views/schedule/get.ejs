@@ -1,0 +1,65 @@
+<%- include('../includes/head.ejs') %>
+</head>
+
+<body>
+    <main class="d-flex flex-nowrap">
+        <%- include('../includes/Sidebar.ejs') %>
+        <div class="d-flex flex-column mb-3" style="margin: 20px;">
+            <h1>Schedule</h1>
+            <div style=" flex-direction: column;">
+                <div style="width:fit-content; margin: auto;">
+                    <table id="schedule_table" class="table table-striped table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th scope="col">#</th>                        
+                                <th scope="col">Employee ID</th>
+                                <th scope="col">Facility ID</th>
+                                <th scope="col">Work Date</th>
+                                <th scope="col">Start Time</th>
+                                <th scope="col">End Time</th>
+                                <th scope="col">Hours</th>
+                                <th><a href='/schedule/add'>Add</a></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%if(data.length>0){ %>
+                            <%data.forEach(entry =>{  %>
+                            <tr>
+                                <td id="test" data-test="<%=entry.schedule_id%>" scope="row"><%=entry.schedule_id%></td>
+                                <td><%=entry.employee_id%></td>
+                                <td><%=entry.facility_id%></td>
+                                <td><%=entry.Work_Date%></td>
+                                <td><%=entry.Start_Time%></td>
+                                <td><%=entry.End_Time%></td>
+                                <td><%=entry.Hours%></td>
+                                <td><a href='/schedule/edit/<%= entry.schedule_id %>?employee_id=<%= entry.employee_id %>&facility_id=<%= entry.facility_id %>'>Edit</a></td>
+                                <td> <button id="deletebtn-<%= entry.schedule_id %>" class="btn btn-danger buttons">Delete</button> </td>
+                            </tr>
+                            <%})}%>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <br>
+            </div>
+        </div>
+    </main>
+
+<script>
+    let buttons = document.querySelectorAll('.buttons')
+    buttons.forEach((buttons) => {
+        buttons.addEventListener('click', (e) => {
+            const id = buttons.id.split('-')[1]
+            fetch(`/schedule/${id}`, {
+                    method: 'DELETE',
+                })
+                .then((response) => response.text())
+                .then(data => window.location.reload())
+                .catch(error => {
+                    console.error(error)
+                })
+        })
+    })
+</script>
+<%- include('../includes/end.ejs') %>
