@@ -7,7 +7,7 @@ require('dotenv').config()
 // local setup when development NODE_ENV flag is used, otherwise SSH connection with school's DB
 let connection;
 if (process.env.NODE_ENV == "development") {
-    // console.log("In development mode:");
+    console.log("In development mode:");
     connection = mysql.createConnection({
         host: process.env.DEV_DB_HOST,
         port: process.env.DEV_DB_PORT,
@@ -46,11 +46,7 @@ if (process.env.NODE_ENV == "development") {
                 forwardConfig.dstHost,
                 forwardConfig.dstPort,
                 (err, stream) => {
-                    console.log(err)
-                    if (err) {
-                        console.log(err);
-                        reject(err);
-                    }
+                    if (err) reject(err);
                     const updatedDbServer = {
                         ...dbServer,
                         stream
@@ -58,7 +54,6 @@ if (process.env.NODE_ENV == "development") {
                     const connection = mysql.createConnection(updatedDbServer);
                     connection.connect((error) => {
                         if (error) {
-                            console.log(error);
                             reject(error);
                         }
                         resolve(connection);
