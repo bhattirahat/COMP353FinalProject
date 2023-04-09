@@ -1,22 +1,22 @@
-<%- include('includes/head.ejs') %>
+<%- include('../includes/head.ejs') %>
 <!-- link to css files -->
 </head>
 
 <body>
     <main class="d-flex flex-nowrap">
-        <%- include('includes/Sidebar.ejs') %>
+        <%- include('../includes/Sidebar.ejs') %>
         <div class="d-flex flex-column mb-3" style="margin: 20px;">
 
-            <%- include('includes/queryNav.ejs') %>
+            <%- include('../includes/queryNav.ejs') %>
             <p>For a given facility, generate a list of all the doctors and nurses who have been on schedule to work in the last two weeks. The list should include first-name, last-name, and role. Results should be displayed in ascending order by role, then by first name. </p>
-            
+
             <form action="/homepage/query11/getInfo" method="GET">
                 <div class="form-group">
                     <label for="Facility">Facility ID</label>
-                    <input type="number" class="form-control" id ="FCL" placeholder="Enter Facility ID" name = "FCL" >
+                    <input type="number" class="form-control" id="FCL" placeholder="Enter Facility ID" name="FCL">
                 </div>
                 <br>
-             <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
 
             <table id="query11_table" class="table table-striped table-sm">
@@ -40,15 +40,13 @@
                         <td><%=entry.Type%></td>
                         <td><%=entry.facility_id%></td>
                         <td><%=entry.Work_Date%></td>
-                        
+
                     </tr>
                     <%})}%>
                 </tbody>
             </table>
-            
-        
 
-        
+
 
 
 
@@ -57,4 +55,4 @@
 
     </main>
 
-    <%- include('includes/end.ejs') %>
+    <%- include('../includes/end.ejs') %>
