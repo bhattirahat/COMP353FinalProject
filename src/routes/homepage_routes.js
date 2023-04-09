@@ -331,12 +331,47 @@ router.get('/query12/getInfo', async (req, res, next) => {
     })
 })
 
-router.get('/query13', async (req, res, next) => {
-    res
-        .status(StatusCode.SuccessOK)
-        .render('query13', {
-            pageTitle: 'Query 13'
-        })
+router.get('/query13/getInfo', async (req, res, next) => {
+    getInfo = `SELECT P.name AS province_name, F.name AS facility_name, F.capacity, COUNT(DISTINCT I.employee_id) AS num_infected_employees
+    FROM Province P 
+    JOIN City C ON P.province_id = C.province_id 
+    JOIN PostalCode PC ON C.city_id = PC.city_id 
+    JOIN Facility F ON PC.postal_code = F.postal_code 
+    LEFT JOIN Work_At WA ON F.facility_id = WA.facility_id 
+    LEFT JOIN Infection I ON WA.employee_id = I.employee_id AND I.date BETWEEN DATE_SUB(NOW(), INTERVAL 2 WEEK) AND NOW() 
+    GROUP BY F.facility_id 
+    ORDER BY P.name, num_infected_employees;`
+ 
+    db.then(conn => {
+        conn.query(getInfo, (err, result, fields) => {
+            if (err) {
+                throw err;
+            }
+            console.log("SQL Query Result-- ", result);
+            if (result.length !== 0) {
+                console.log(result)
+                totaltype = result[1]
+                res.status(StatusCode.SuccessOK)
+                    .render('query13', {
+                        pageTitle: 'Query 13',
+                        success: '',
+                        data: result,
+                        field: totaltype
+                    })
+            }
+            else {
+                res
+                    .status(StatusCode.SuccessOK)
+                    .render('query13', {
+                        pageTitle: 'Query 13',
+                        data: []
+                    })
+            }
+            // conn.end();
+        });
+    }).catch(err => {
+        console.log(err)
+    })
 })
 
 router.get('/query14', async (req, res, next) => {
@@ -498,11 +533,52 @@ router.get('/query16/getInfo', async (req, res, next) => {
     })
 })
 
-router.get('/query17', async (req, res, next) => {
-    res
-        .status(StatusCode.SuccessOK)
-        .render('query17', {
-            pageTitle: 'Query 17'
-        })
+router.get('/query17/getInfo', async (req, res, next) => {
+    getInfo = `SELECT e.first_name, e.last_name, MIN(wa.start_date) AS first_day_worked, o.type AS role,
+    e.date_of_birth, e.email, SUM(es.Hours) AS total_hours_scheduled
+FROM Employee e
+JOIN Occupation o ON e.occupation_id = o.occupation_id
+JOIN Work_At wa ON e.employee_id = wa.employee_id
+JOIN Facility f ON wa.facility_id = f.facility_id
+JOIN Employee_Schedule es ON e.employee_id = es.employee_id
+WHERE NOT EXISTS (
+SELECT 1 FROM Infection i WHERE i.employee_id = e.employee_id
+)
+AND o.type IN ('Nurse', 'Doctor')
+AND es.work_date BETWEEN DATE(NOW()) AND DATE_ADD(DATE(NOW()), INTERVAL 7 DAY)  
+GROUP BY e.employee_id
+ORDER BY o.type ASC, e.first_name ASC, e.last_name ASC;`
+ 
+    db.then(conn => {
+        conn.query(getInfo, (err, result, fields) => {
+            if (err) {
+                throw err;
+            }
+            console.log("SQL Query Result-- ", result);
+            if (result.length !== 0) {
+                console.log(result)
+                totaltype = result[1]
+                res.status(StatusCode.SuccessOK)
+                    .render('query17', {
+                        pageTitle: 'Query 17',
+                        success: '',
+                        data: result,
+                        field: totaltype
+                    })
+            }
+            else {
+                res
+                    .status(StatusCode.SuccessOK)
+                    .render('query17', {
+                        pageTitle: 'Query 17',
+                        data: []
+                    })
+            }
+            // conn.end();
+        });
+    }).catch(err => {
+        console.log(err)
+    })
 })
+
 module.exports = router
