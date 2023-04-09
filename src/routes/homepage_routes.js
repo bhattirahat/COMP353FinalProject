@@ -164,12 +164,48 @@ router.get('/query8/getInfo', async (req, res, next) => {
     })
 })
 
-router.get('/query9', async (req, res, next) => {
-    res
-        .status(StatusCode.SuccessOK)
-        .render('query9', {
-            pageTitle: 'Query 9'
-        })
+router.get('/query9/getInfo', async (req, res, next) => {
+    getInfo = `SELECT e.first_name, e.last_name, i.date, f.name AS facility_name
+    FROM Employee e
+    JOIN Work_At w ON e.employee_id = w.employee_id
+    JOIN Facility f ON w.facility_id = f.facility_id
+    JOIN Infection i ON e.employee_id = i.employee_id
+    JOIN Infection_Type it ON i.infection_type_id = it.infection_type_id
+    WHERE it.type = 'COVID-19'
+    AND i.date >= DATE_SUB(CURDATE(), INTERVAL 2 WEEK)
+    AND e.occupation_id = (SELECT occupation_id FROM Occupation WHERE type = 'Doctor')
+    ORDER BY f.name ASC, e.first_name ASC;`
+ 
+    db.then(conn => {
+        conn.query(getInfo, (err, result, fields) => {
+            if (err) {
+                throw err;
+            }
+            console.log("SQL Query Result-- ", result);
+            if (result.length !== 0) {
+                console.log(result)
+                totaltype = result[1]
+                res.status(StatusCode.SuccessOK)
+                    .render('query9', {
+                        pageTitle: 'Query 9',
+                        success: '',
+                        data: result,
+                        field: totaltype
+                    })
+            }
+            else {
+                res
+                    .status(StatusCode.SuccessOK)
+                    .render('query9', {
+                        pageTitle: 'Query 9',
+                        data: []
+                    })
+            }
+            // conn.end();
+        });
+    }).catch(err => {
+        console.log(err)
+    })
 })
 
 router.get('/query10', async (req, res, next) => {
