@@ -1,0 +1,74 @@
+<%- include('../includes/head.ejs') %>
+</head>
+
+<body>
+    <main class="d-flex flex-nowrap">
+        <%- include('../includes/Sidebar.ejs') %>
+        <div class="d-flex flex-column mb-3" style="margin: 20px;">
+
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/infection">Infection</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Add</li>
+                </ol>
+            </nav>
+
+            <h2>Add a Infection</h2>
+
+            <form>
+                <div class="form-group">
+                    <fieldset>
+                        <div class="mb-3">
+                          <label for="infection_type" class="form-label">Infection Type</label>
+                          <select id="infection_type" class="form-select">
+                            <option>COVID-19</option>
+                            <option>SARS-Cov-2 Variant</option>
+                            <option>RSV</option>
+                            <option>Influenza</option>
+                            <option>Pneumonia</option>
+                            <option>Rotavirus</option>
+                            <option>Chickenpox</option>
+                            <option>Cancer</option>
+                          </select>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="form-group">
+                    <label for="Employee ID">Employee ID</label>
+                    <input type="number" class="form-control" id="employee_id" placeholder="Enter employeeID">
+                </div>
+                <div class="form-group">
+                    <label for="startDate">Date</label>
+                    <input id="startDate" class="form-control" type="date" />
+                    <span id="date"></span>
+                </div>
+                <button class="btn btn-primary" id="create-infection">Submit</button>
+            </form>
+
+            <script>  
+                let startDate = document.getElementById('startDate')
+                startDate.addEventListener('change',(e)=>{
+                    let startDateVal = e.target.value
+                    document.getElementById('date').innerText = startDateVal
+                });
+
+                document.getElementById('create-infection').addEventListener('click', (e)=>{
+                    let infectionData = {
+                        infection_type: document.getElementById('infection_type').value,
+                        employee_id: document.getElementById('employee_id').value,
+                        date: document.getElementById('startDate').value,
+                    };
+                    console.log(infectionData)
+
+                    fetch('/infection/add', {
+                        method: 'POST',
+                        body: JSON.stringify(infectionData),
+                        headers: { 'Content-Type': 'application/json' }
+                    }).then(res => res.json())
+                      .then(json => console.log(json));
+                });
+            </script>  
+        </div>
+    </main>
+
+    <%- include('../includes/end.ejs') %>

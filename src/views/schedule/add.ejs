@@ -1,0 +1,72 @@
+<%- include('../includes/head.ejs') %>
+</head>
+
+<body>
+    <main class="d-flex flex-nowrap">
+        <%- include('../includes/Sidebar.ejs') %>
+        <div class="d-flex flex-column mb-3" style="margin: 20px;">
+
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/schedule">Schedule</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Add</li>
+                </ol>
+            </nav>
+
+            <h2>Add a Schedule</h2>
+
+            <form>
+                <div class="form-group">
+                    <label for="Employee ID">Employee ID</label>
+                    <input type="number" min="0" class="form-control" id="employee_id" placeholder="Enter employeeID">
+                </div>
+                <div class="form-group">
+                    <label for="Facility ID">Facility ID</label>
+                    <input type="number" min="0" class="form-control" id="facility_id" placeholder="Enter facilityID">
+                </div>
+                <div class="form-group">
+                    <label for="startDate">Work Date</label>
+                    <input id="startDate" class="form-control" type="date" />
+                    <span id="date"></span>
+                </div>
+                <div class="form-group">
+                    <label for="Start Time">Start Time</label>
+                    <input type="number" class="form-control" id="start_time" min="1" max="24" placeholder="Enter Start Time">
+                </div>
+                <div class="form-group">
+                    <label for="End Time">End Time</label>
+                    <input type="number" class="form-control" min="1" max="24" id="end_time" placeholder="Enter End Time">
+                </div>
+                <button class="btn btn-primary" id="create-schedule">Submit</button>
+            </form>
+
+            <script>  
+                let startDate = document.getElementById('startDate')
+                startDate.addEventListener('change',(e)=>{
+                    let startDateVal = e.target.value
+                    document.getElementById('date').innerText = startDateVal
+                });
+
+                document.getElementById('create-schedule').addEventListener('click', (e)=>{
+                    let scheduleData = {
+                        employee_id: document.getElementById('employee_id').value,
+                        facility_id: document.getElementById('facility_id').value,
+                        work_date: document.getElementById('startDate').value,
+                        start_time: document.getElementById('start_time').value,
+                        end_time: document.getElementById('end_time').value,
+                        hours: Math.abs(document.getElementById('end_time').value - document.getElementById('start_time').value)
+                    };
+                    console.log(scheduleData)
+
+                    fetch('/schedule/add', {
+                        method: 'POST',
+                        body: JSON.stringify(scheduleData),
+                        headers: { 'Content-Type': 'application/json' }
+                    }).then(res => res.json())
+                      .then(json => console.log(json));
+                });
+            </script>  
+        </div>
+    </main>
+
+    <%- include('../includes/end.ejs') %>

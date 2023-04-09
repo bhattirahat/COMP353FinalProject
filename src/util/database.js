@@ -37,28 +37,33 @@ if(process.env.NODE_ENV == "development") {
         dstHost: dbServer.host,
         dstPort: dbServer.port
     };
-    
+
     connection = new Promise((resolve, reject) => {
         sshClient.on('ready', () => {
             sshClient.forwardOut(
-            forwardConfig.srcHost,
-            forwardConfig.srcPort,
-            forwardConfig.dstHost,
-            forwardConfig.dstPort,
-            (err, stream) => {
-                if (err) reject(err);
-                const updatedDbServer = {
-                    ...dbServer,
-                    stream
-                };
-                const connection =  mysql.createConnection(updatedDbServer);
-                connection.connect((error) => {
-                    if (error) {
-                        reject(error);
-                    }
-                    resolve(connection);
+                forwardConfig.srcHost,
+                forwardConfig.srcPort,
+                forwardConfig.dstHost,
+                forwardConfig.dstPort,
+                (err, stream) => {
+                    console.log(err)
+                    if (err) {
+                        console.log(err);
+                        reject(err);
+                    } 
+                    const updatedDbServer = {
+                        ...dbServer,
+                        stream
+                    };
+                    const connection =  mysql.createConnection(updatedDbServer);
+                    connection.connect((error) => {
+                        if (error) {
+                            console.log(error);
+                            reject(error);
+                        }
+                        resolve(connection);
+                    });
                 });
-            });
         }).connect(tunnelConfig);
     });    
 }
