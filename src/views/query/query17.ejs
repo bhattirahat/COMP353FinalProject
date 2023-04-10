@@ -7,11 +7,43 @@
         <%- include('../includes/Sidebar.ejs') %>
         <div class="d-flex flex-column mb-3" style="margin: 20px;">
 
-            <%- include('../includes/queryNav.ejs') %>
+            <%- include('includes/queryNav.ejs') %>
+            <p>For every facility, provide the province where the facility is located, the facility name, the capacity of the facility, and the total number of employees in the facility who have been infected by COVID-19 in the past two weeks. The results should be displayed in ascending order by province, then by the total number of employees infected. </p>
 
-            <form action="" method="POST">
-
+            <form action="/homepage/query9/getInfo" method="GET">
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
+
+            <table class="table table-hover table-sm">
+                <tr>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">First Day Worked</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Date Of Birth</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Total Hours Scheduled</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tbody>
+                    <tr>
+                        <%if(data.length>0){ %>
+                        <%data.forEach(entry =>{  %>
+                        <td><%=entry.first_name%></td>
+                        <td><%=entry.last_name%></td>
+                        <td><%=entry.first_day_worked%></td>
+                        <td><%=entry.role%></td>
+                        <td><%=entry.date_of_birth%></td>
+                        <td><%=entry.email%></td>
+                        <td><%=entry.total_hours_scheduled%></td>
+                    </tr>
+                    <%})} else { %>
+                    <h1>No Data</h1>
+                    <%  }  %>
+
+                </tbody>
+            </table>
         </div>
 
 

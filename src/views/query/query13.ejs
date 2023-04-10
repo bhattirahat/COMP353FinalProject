@@ -7,11 +7,38 @@
         <%- include('../includes/Sidebar.ejs') %>
         <div class="d-flex flex-column mb-3" style="margin: 20px;">
 
-            <%- include('../includes/queryNav.ejs') %>
+            <%- include('includes/queryNav.ejs') %>
+            <p>For every facility, provide the province where the facility is located, the facility name, the capacity of the facility, and the total number of employees in the facility who have been infected by COVID-19 in the past two weeks. The results should be displayed in ascending order by province, then by the total number of employees infected. </p>
 
-            <form action="" method="POST">
-
+            <form action="/homepage/query9/getInfo" method="GET">
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
+
+            <table class="table table-hover table-sm">
+                <tr>
+                    <th scope="col">Province Name</th>
+                    <th scope="col">Facility Name</th>
+                    <th scope="col">Capacity</th>
+                    <th scope="col">Number of infected employees</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tbody>
+                    <tr>
+                        <%if(data.length>0){ %>
+                        <%data.forEach(entry =>{  %>
+                        <td><%=entry.province_name%></td>
+                        <td><%=entry.facility_name%></td>
+                        <td><%=entry.capacity%></td>
+                        <td><%=entry.num_infected_employees%></td>
+
+                    </tr>
+                    <%})} else { %>
+                    <h1>No Data</h1>
+                    <%  }  %>
+
+                </tbody>
+            </table>
         </div>
 
 
