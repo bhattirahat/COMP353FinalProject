@@ -6,6 +6,10 @@ $(document).ready(function () {
                 targets: 4,
                 render: DataTable.render.date(),
             },
+            {
+                className: 'dt-left',
+                targets: '_all',
+            },
         ]
     });
 

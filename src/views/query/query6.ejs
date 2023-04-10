@@ -1,32 +1,32 @@
-<%- include('includes/head.ejs') %>
+<%- include('../includes/head.ejs') %>
 <!-- link to css files -->
 </head>
 
 <body>
     <main class="d-flex flex-nowrap">
-        <%- include('includes/sidebar.ejs') %>
+        <%- include('../includes/sidebar.ejs') %>
         <div class="d-flex flex-column mb-3" style="margin: 20px;">
 
-            <%- include('includes/queryNav.ejs') %>
+            <%- include('../includes/queryNav.ejs') %>
             <p>Get details of all the facilities in the system. Details include the facility's name, address, city, province, postal-code, phone number, web address, type, capacity, general manager’s name and number of employees currently working for the facility. Results should be displayed sorted in ascending order by province, then by city, then by type, then by number of employees currently working for the facility.</p>
 
-            <table id = "query6_table" class="table table-striped table-sm ">
-              <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Address</th>
-                    <th scope="col">City</th>
-                    <th scope="col">Province</th>
-                    <th scope="col">Postal Code</th>
-                    <th scope="col">Phone number</th>
-                    <th scope="col">Web address</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Capacity</th>
-                    <th scope="col">General Manager</th>
-                    <th scope="col"># of Employee</th>
-                </tr>
-            </thead>
+            <table id="query6_table" class="table table-striped table-sm ">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">City</th>
+                        <th scope="col">Province</th>
+                        <th scope="col">Postal Code</th>
+                        <th scope="col">Phone number</th>
+                        <th scope="col">Web address</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Capacity</th>
+                        <th scope="col">General Manager</th>
+                        <th scope="col"># of Employee</th>
+                    </tr>
+                </thead>
                 <tbody>
                     <tr>
                         <%if(data.length>0){ %>
@@ -53,4 +53,4 @@
 
     </main>
 
-    <%- include('includes/end.ejs') %>
+    <%- include('../includes/end.ejs') %>

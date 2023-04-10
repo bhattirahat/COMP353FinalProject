@@ -38,16 +38,16 @@ router.get('/query6', async (req, res, next) => {
             if (result.length !== 0) {
                 queryresult = result[0];
                 res.status(StatusCode.SuccessOK)
-                    .render('query6', {
-                        pageTitle: "Query6",
+                    .render('query/query6', {
+                        pageTitle: "Query 6",
                         data: result,
                         field: queryresult
                     })
             } else {
                 queryresult = result[0];
                 res.status(StatusCode.SuccessOK)
-                    .render('query6', {
-                        pageTitle: "Query6",
+                    .render('query/query6', {
+                        pageTitle: "Query 6",
                         data: []
                     })
             }
@@ -61,7 +61,7 @@ router.get('/query6', async (req, res, next) => {
 router.get('/query7', async (req, res, next) => {
     res
         .status(StatusCode.SuccessOK)
-        .render('query7', {
+        .render('query/query7', {
             pageTitle: 'Query 7',
             data: []
         })
@@ -92,7 +92,7 @@ router.get('/query7/getInfo', async (req, res, next) => {
                 console.log(result)
                 totaltype = result[1]
                 res.status(StatusCode.SuccessOK)
-                    .render('query7', {
+                    .render('query/query7', {
                         pageTitle: 'Query 7',
                         success: '',
                         data: result,
@@ -102,7 +102,7 @@ router.get('/query7/getInfo', async (req, res, next) => {
             else {
                 res
                     .status(StatusCode.SuccessOK)
-                    .render('query7', {
+                    .render('query/query7', {
                         pageTitle: 'Query 7',
                         data: []
                     })
@@ -118,7 +118,7 @@ router.get('/query7/getInfo', async (req, res, next) => {
 router.get('/query8', async (req, res, next) => {
     res
         .status(StatusCode.SuccessOK)
-        .render('query8', {
+        .render('query/query8', {
             pageTitle: 'Query 8',
             data: []
         })
@@ -142,7 +142,7 @@ router.get('/query8/getInfo', async (req, res, next) => {
                 console.log(result)
                 totaltype = result[1]
                 res.status(StatusCode.SuccessOK)
-                    .render('query8', {
+                    .render('query/query8', {
                         pageTitle: 'Query 8',
                         success: '',
                         data: result,
@@ -152,7 +152,7 @@ router.get('/query8/getInfo', async (req, res, next) => {
             else {
                 res
                     .status(StatusCode.SuccessOK)
-                    .render('query8', {
+                    .render('query/query8', {
                         pageTitle: 'Query 8',
                         data: []
                     })
@@ -167,23 +167,53 @@ router.get('/query8/getInfo', async (req, res, next) => {
 router.get('/query9', async (req, res, next) => {
     res
         .status(StatusCode.SuccessOK)
-        .render('query9', {
+        .render('query/query9', {
             pageTitle: 'Query 9'
         })
 })
 
 router.get('/query10', async (req, res, next) => {
-    res
-        .status(StatusCode.SuccessOK)
-        .render('query10', {
-            pageTitle: 'Query 10'
-        })
+    const facility_id = req.query.facility_id || '';
+    console.log(facility_id)
+    query =
+        `
+        select 
+            t1.Email_id, 
+            t2.name,
+            t1.Email_Sent_Date,
+            t3.first_name,
+            t3.last_name,
+            t1.Email_Subject,
+            t1.Body
+        from Email_Log t1
+        inner join Facility t2 on t1.facility_id = t2.facility_id
+        inner join Employee t3 on t1.Receiver_id = t3.employee_id
+        where t1.facility_id like '%${facility_id}%';
+        `
+
+    db.then(conn => {
+        conn.query(query, (err, result, fields) => {
+            if (err) {
+                throw err;
+            }
+            res
+                .status(StatusCode.SuccessOK)
+                .render('query/query10', {
+                    pageTitle: 'Query 10',
+                    email: result
+                })
+
+            // conn.end();
+        });
+    }).catch(err => {
+        console.log("error is " + err)
+    })
 })
 
 router.get('/query11', async (req, res, next) => {
     res
         .status(StatusCode.SuccessOK)
-        .render('query11', {
+        .render('query/query11', {
             pageTitle: 'Query 11',
             data: []
         })
@@ -192,7 +222,7 @@ router.get('/query11', async (req, res, next) => {
 router.get('/query11/getInfo', async (req, res, next) => {
 
     facility_id = req.query.FCL;
-    
+
     console.log(facility_id)
 
     getInfo = `
@@ -216,17 +246,17 @@ router.get('/query11/getInfo', async (req, res, next) => {
             if (result.length !== 0) {
                 console.log(result)
                 res.status(StatusCode.SuccessOK)
-                    .render('query11', {
+                    .render('query/query11', {
                         pageTitle: 'Query 11',
                         success: '',
                         data: result,
-                        
+
                     })
             }
             else {
                 res
                     .status(StatusCode.SuccessOK)
-                    .render('query11', {
+                    .render('query/query11', {
                         pageTitle: 'Query 11',
                         data: []
                     })
@@ -238,13 +268,13 @@ router.get('/query11/getInfo', async (req, res, next) => {
     })
 
 
-   
+
 })
 
 router.get('/query12', async (req, res, next) => {
     res
         .status(StatusCode.SuccessOK)
-        .render('query12', {
+        .render('query/query12', {
             pageTitle: 'Query 12',
             data: []
         })
@@ -273,7 +303,7 @@ router.get('/query12/getInfo', async (req, res, next) => {
                 console.log(result)
                 totaltype = result[1]
                 res.status(StatusCode.SuccessOK)
-                    .render('query12', {
+                    .render('query/query12', {
                         pageTitle: 'Query 12',
                         success: '',
                         data: result,
@@ -283,7 +313,7 @@ router.get('/query12/getInfo', async (req, res, next) => {
             else {
                 res
                     .status(StatusCode.SuccessOK)
-                    .render('query12', {
+                    .render('query/query12', {
                         pageTitle: 'Query 12',
                         data: []
                     })
@@ -298,7 +328,7 @@ router.get('/query12/getInfo', async (req, res, next) => {
 router.get('/query13', async (req, res, next) => {
     res
         .status(StatusCode.SuccessOK)
-        .render('query13', {
+        .render('query/query13', {
             pageTitle: 'Query 13'
         })
 })
@@ -337,19 +367,19 @@ router.get('/query14', async (req, res, next) => {
             if (result.length !== 0) {
                 console.log(result)
                 totaltype = result[1]
-            
+
                 res.status(StatusCode.SuccessOK)
-                    .render('query14', {
+                    .render('query/query14', {
                         pageTitle: 'Query 14',
                         success: '',
                         data: result,
-                        
+
                     })
             }
             else {
                 res
                     .status(StatusCode.SuccessOK)
-                    .render('query14', {
+                    .render('query/query14', {
                         pageTitle: 'Query 14',
                         data: []
                     })
@@ -363,39 +393,45 @@ router.get('/query14', async (req, res, next) => {
 
 router.get('/query15', async (req, res, next) => {
     query =
-        `select t2.first_name,  t2.last_name, t1.Start_Date,  t2.date_of_birth, t2.email, SUM(t3.End_time - t3.Start_time) as Total_hours_worked
-        from Work_At t1
-        inner join Employee t2 on t1.employee_id = t2.employee_id
-        inner join History_Schedule t3 on t1.employee_id = t3.employee_id
-        where t2.occupation_id = 1 and (t1.End_Date is Null or t1.End_Date >= current_date())
-        group by t1.employee_id
-        having SUM(t3.End_time - t3.Start_time) = 
-        (select SUM(t3.End_time - t3.Start_time)
-        from Work_At t1
-        inner join Employee t2 on t1.employee_id = t2.employee_id
-        inner join History_Schedule t3 on t1.employee_id = t3.employee_id
-        where t2.occupation_id = 1 and (t1.End_Date is Null or t1.End_Date >= current_date()))
-        
-           `
+        `
+            select t2.first_name,  t2.last_name, t1.Start_Date,  t2.date_of_birth, t2.email, SUM(t3.End_time - t3.Start_time) as Total_hours_worked
+            from Work_At t1
+            inner join Employee t2 on t1.employee_id = t2.employee_id
+            inner join History_Schedule t3 on t1.employee_id = t3.employee_id
+            where t2.occupation_id = 1 and (t1.End_Date is Null or t1.End_Date >= current_date())
+            group by t1.employee_id
+            having SUM(t3.End_time - t3.Start_time) =
+            (
+            SELECT MAX(total_hours)
+            FROM (
+            SELECT t1.employee_id, SUM(End_time - Start_time) AS total_hours
+            FROM Work_At t1
+            INNER JOIN History_Schedule t2 ON t1.employee_id = t2.employee_id
+            WHERE t1.End_Date is Null or t1.End_Date >= current_date()
+            GROUP BY t1.employee_id
+            ) t3
+            INNER JOIN Employee t4 ON t4.employee_id = t3.employee_id
+            WHERE t4.occupation_id = 1
+            );
+        `
     db.then(conn => {
         conn.query(query, (err, result, fields) => {
             if (err) {
                 throw err;
             }
-            console.log("SQL Query Result-- ", result);
             if (result.length !== 0) {
                 queryresult = result[0];
                 res.status(StatusCode.SuccessOK)
-                    .render('query15', {
-                        pageTitle: "Query15",
+                    .render('query/query15', {
+                        pageTitle: "Query 15",
                         data: result,
                         field: queryresult
                     })
             } else {
                 queryresult = result[0];
                 res.status(StatusCode.SuccessOK)
-                    .render('query15', {
-                        pageTitle: "Query15",
+                    .render('query/query15', {
+                        pageTitle: "Query 15",
                         data: []
                     })
             }
@@ -409,7 +445,7 @@ router.get('/query15', async (req, res, next) => {
 router.get('/query16', async (req, res, next) => {
     res
         .status(StatusCode.SuccessOK)
-        .render('query16', {
+        .render('query/query16', {
             pageTitle: 'Query 16',
             data: []
         })
@@ -440,7 +476,7 @@ router.get('/query16/getInfo', async (req, res, next) => {
                 console.log(result)
                 totaltype = result[1]
                 res.status(StatusCode.SuccessOK)
-                    .render('query16', {
+                    .render('query/query16', {
                         pageTitle: 'Query 16',
                         success: '',
                         data: result,
@@ -450,7 +486,7 @@ router.get('/query16/getInfo', async (req, res, next) => {
             else {
                 res
                     .status(StatusCode.SuccessOK)
-                    .render('query16', {
+                    .render('query/query16', {
                         pageTitle: 'Query 16',
                         data: []
                     })
@@ -465,7 +501,7 @@ router.get('/query16/getInfo', async (req, res, next) => {
 router.get('/query17', async (req, res, next) => {
     res
         .status(StatusCode.SuccessOK)
-        .render('query17', {
+        .render('query/query17', {
             pageTitle: 'Query 17'
         })
 })
