@@ -183,10 +183,9 @@ router.get('/query9/getInfo', async (req, res, next) => {
             }
             console.log("SQL Query Result-- ", result);
             if (result.length !== 0) {
-                console.log(result)
                 totaltype = result[1]
                 res.status(StatusCode.SuccessOK)
-                    .render('query9', {
+                    .render('query/query9', {
                         pageTitle: 'Query 9',
                         success: '',
                         data: result,
@@ -196,7 +195,7 @@ router.get('/query9/getInfo', async (req, res, next) => {
             else {
                 res
                     .status(StatusCode.SuccessOK)
-                    .render('query9', {
+                    .render('query/query9', {
                         pageTitle: 'Query 9',
                         data: []
                     })
@@ -379,10 +378,9 @@ router.get('/query13/getInfo', async (req, res, next) => {
             }
             console.log("SQL Query Result-- ", result);
             if (result.length !== 0) {
-                console.log(result)
                 totaltype = result[1]
                 res.status(StatusCode.SuccessOK)
-                    .render('query13', {
+                    .render('query/query13', {
                         pageTitle: 'Query 13',
                         success: '',
                         data: result,
@@ -392,7 +390,7 @@ router.get('/query13/getInfo', async (req, res, next) => {
             else {
                 res
                     .status(StatusCode.SuccessOK)
-                    .render('query13', {
+                    .render('query/query13', {
                         pageTitle: 'Query 13',
                         data: []
                     })
@@ -590,12 +588,11 @@ ORDER BY o.type ASC, e.first_name ASC, e.last_name ASC;`
             if (err) {
                 throw err;
             }
-            console.log("SQL Query Result-- ", result);
+            // console.log("SQL Query Result-- ", result);
             if (result.length !== 0) {
-                console.log(result)
                 totaltype = result[1]
                 res.status(StatusCode.SuccessOK)
-                    .render('query17', {
+                    .render('query/query17', {
                         pageTitle: 'Query 17',
                         success: '',
                         data: result,
@@ -605,7 +602,7 @@ ORDER BY o.type ASC, e.first_name ASC, e.last_name ASC;`
             else {
                 res
                     .status(StatusCode.SuccessOK)
-                    .render('query17', {
+                    .render('query/query17', {
                         pageTitle: 'Query 17',
                         data: []
                     })
