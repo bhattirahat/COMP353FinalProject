@@ -19,12 +19,17 @@ router.get('/', async (req, res, next) => {
             t1.email,
             t2.Address_line,
             t2.Postal_Code,
+            t6.name as city,
+            t7.name as province,
             t3.telephone_number,
             t4.Type as occupation
         from Employee t1
         left join Employee_Address t2 on t1.employee_id = t2.employee_id
         left join Employee_Telephone t3 on t1.employee_id = t3.employee_id
-        left join Occupation t4 on t4.occupation_id = t1.occupation_id;
+        left join Occupation t4 on t4.occupation_id = t1.occupation_id
+        left join PostalCode t5 on t5.postal_code = t2.Postal_Code
+        left join City t6 on t6.city_id = t5.city_id
+        left join Province t7 on t7.province_id = t6.province_id
         `
     db.then(conn => {
         conn.query(query, (err, result, fields) => {

@@ -173,11 +173,41 @@ router.get('/query9', async (req, res, next) => {
 })
 
 router.get('/query10', async (req, res, next) => {
-    res
-        .status(StatusCode.SuccessOK)
-        .render('query/query10', {
-            pageTitle: 'Query 10'
-        })
+    const facility_id = req.query.facility_id || '';
+    console.log(facility_id)
+    query =
+        `
+        select 
+            t1.Email_id, 
+            t2.name,
+            t1.Email_Sent_Date,
+            t3.first_name,
+            t3.last_name,
+            t1.Email_Subject,
+            t1.Body
+        from Email_Log t1
+        inner join Facility t2 on t1.facility_id = t2.facility_id
+        inner join Employee t3 on t1.Receiver_id = t3.employee_id
+        where t1.facility_id like '%${facility_id}%';
+        `
+
+    db.then(conn => {
+        conn.query(query, (err, result, fields) => {
+            if (err) {
+                throw err;
+            }
+            res
+                .status(StatusCode.SuccessOK)
+                .render('query/query10', {
+                    pageTitle: 'Query 10',
+                    email: result
+                })
+
+            // conn.end();
+        });
+    }).catch(err => {
+        console.log("error is " + err)
+    })
 })
 
 router.get('/query11', async (req, res, next) => {

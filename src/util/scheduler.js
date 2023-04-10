@@ -20,11 +20,11 @@ module.exports = cron.schedule(`${seconds} ${minutes} ${hour} ${day} *${month} $
         CONCAT(t1.name, ' Schedule for ' ,DATE_FORMAT(DATE_ADD(current_date(), interval 1 day), '%W %e-%b-%Y'), ' to ', DATE_FORMAT(DATE_ADD(current_date(), interval 8 day), '%W %e-%b-%Y')) as subject,
         CONCAT(
             'Facility Name: ', t1.name, '\n',
-            'Address:' , t1.address, '\n',
+            'Address: ' , t1.address, '\n',
             'First Name: ', t3.first_name, '\n',
-            'Last Name', t3.last_name, '\n',
+            'Last Name: ', t3.last_name, '\n',
             'Email: ', t3.email, '\n',        
-            GROUP_CONCAT(CONCAT(DATE_FORMAT(t2.work_date, '%W'), ' ', t2.start_time, '-', t2.end_time) ORDER BY t2.work_date SEPARATOR '; ')) AS Body
+            'Schedule: ',GROUP_CONCAT(CONCAT(DATE_FORMAT(t2.work_date, '%W'), ' ', t2.start_time, '-', t2.end_time) ORDER BY t2.work_date SEPARATOR '; ')) AS Body
     from 
         Facility t1
         inner join Employee_Schedule t2 on t1.facility_id = t2.facility_id
