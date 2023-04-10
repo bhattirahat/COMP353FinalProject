@@ -2,23 +2,23 @@ const express = require('express');
 const router = express.Router();
 const { StatusCode } = require('status-code-enum')
 const db = require('../util/database');
- 
+
 // GET Employee schedule data and render the schedule table
 router.get('/', async (req, res) => {
     selectAll = `SELECT * FROM Employee_Schedule`
- 
-      db.then(conn => {
+
+    db.then(conn => {
         conn.query(selectAll, (err, result, fields) => {
             if (err) {
                 throw err;
             }
             if (result.length !== 0) {
                 res.status(StatusCode.SuccessOK)
-                .render('schedule/get', {
-                    pageTitle: 'Schedule',
-                    success: '',
-                    data: result
-                }) 
+                    .render('schedule/get', {
+                        pageTitle: 'Schedule',
+                        success: '',
+                        data: result
+                    })
             }
         });
     }).catch(err => {
@@ -47,7 +47,7 @@ router.post('/add', async (req, res, next) => {
     }).catch(err => {
         console.log(err)
     })
-    
+
 })
 
 // DELETE Schedule by ID

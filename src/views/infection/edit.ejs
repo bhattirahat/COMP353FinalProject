@@ -14,23 +14,23 @@
                 </ol>
             </nav>
 
-            <h1>Edit an Infection with ID <%= infection_id %> For Employee ID <%= employee_id %></h1>
+            <h1>Edit Infection ID <%= infection_id %> For Employee ID <%= employee_id %></h1>
 
             <form>
                 <div class="form-group">
                     <fieldset>
                         <div class="mb-3">
-                          <label for="infection_type" class="form-label">Infection Type</label>
-                          <select id="infection_type" class="form-select">
-                            <option>COVID-19</option>
-                            <option>SARS-Cov-2 Variant</option>
-                            <option>RSV</option>
-                            <option>Influenza</option>
-                            <option>Pneumonia</option>
-                            <option>Rotavirus</option>
-                            <option>Chickenpox</option>
-                            <option>Cancer</option>
-                          </select>
+                            <label for="infection_type" class="form-label">Infection Type</label>
+                            <select id="infection_type" class="form-select">
+                                <option>COVID-19</option>
+                                <option>SARS-Cov-2 Variant</option>
+                                <option>RSV</option>
+                                <option>Influenza</option>
+                                <option>Pneumonia</option>
+                                <option>Rotavirus</option>
+                                <option>Chickenpox</option>
+                                <option>Cancer</option>
+                            </select>
                         </div>
                     </fieldset>
                 </div>
@@ -41,32 +41,34 @@
                 </div>
                 <button class="btn btn-primary" id="edit-infection">Submit</button>
             </form>
-            <script>  
+            <script>
                 let startDate = document.getElementById('startDate')
-                startDate.addEventListener('change',(e)=>{
+                startDate.addEventListener('change', (e) => {
                     let startDateVal = e.target.value
                     document.getElementById('date').innerText = startDateVal
                 });
-    
+
                 let infection_id = '<%- JSON.stringify(infection_id) %>';
-                let employee_id = '<%- JSON.stringify(employee_id) %>'; 
- 
-                document.getElementById('edit-infection').addEventListener('click', (e)=>{
+                let employee_id = '<%- JSON.stringify(employee_id) %>';
+
+                document.getElementById('edit-infection').addEventListener('click', (e) => {
                     let infectionData = {
                         infection_id: infection_id,
                         infection_type: document.getElementById('infection_type').value,
                         employee_id: employee_id,
                         date: document.getElementById('startDate').value,
                     };
- 
+
                     fetch(`/infection/edit/${infection_id}`, {
-                        method: 'POST',
-                        body: JSON.stringify(infectionData),
-                        headers: { 'Content-Type': 'application/json' }
-                    }).then(res => res.json())
-                      .then(json => console.log(json));
+                            method: 'POST',
+                            body: JSON.stringify(infectionData),
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        }).then(res => res.json())
+                        .then(json => console.log(json));
                 });
-            </script>  
+            </script>
         </div>
     </main>
 

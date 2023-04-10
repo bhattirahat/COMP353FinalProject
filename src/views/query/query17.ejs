@@ -8,11 +8,8 @@
         <div class="d-flex flex-column mb-3" style="margin: 20px;">
 
             <%- include('../includes/queryNav.ejs') %>
-            <p>For every facility, provide the province where the facility is located, the facility name, the capacity of the facility, and the total number of employees in the facility who have been infected by COVID-19 in the past two weeks. The results should be displayed in ascending order by province, then by the total number of employees infected. </p>
-
-            <form action="/homepage/query9/getInfo" method="GET">
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+            <p>Get details of the nurse(s) or doctor(s) who are currently working and has never been infected by COVID-19. Details include first-name, last-name, first day of work as a nurse or as a doctor, role (nurse/doctor), date of birth, email address, and total number of hours scheduled. Results should be displayed sorted in ascending order by role, then by first name, then by last name
+            </p>
 
             <table class="table table-hover table-sm">
                 <tr>

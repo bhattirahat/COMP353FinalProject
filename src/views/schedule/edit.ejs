@@ -14,7 +14,7 @@
                 </ol>
             </nav>
 
-            <h1>Edit an Schedule with ID <%= schedule_id %> For Employee ID <%= employee_id %></h1>
+            <h1>Edit a Schedule ID <%= schedule_id %> For Employee ID <%= employee_id %></h1>
 
             <form>
                 <div class="form-group">
@@ -40,17 +40,17 @@
                 </div>
                 <button class="btn btn-primary" id="edit-schedule">Submit</button>
             </form>
-            <script>  
+            <script>
                 let startDate = document.getElementById('startDate')
-                startDate.addEventListener('change',(e)=>{
+                startDate.addEventListener('change', (e) => {
                     let startDateVal = e.target.value
                     document.getElementById('date').innerText = startDateVal
                 });
-    
+
                 let schedule_id = '<%- JSON.stringify(schedule_id) %>';
-                let employee_id = '<%- JSON.stringify(employee_id) %>'; 
- 
-                document.getElementById('edit-schedule').addEventListener('click', (e)=>{
+                let employee_id = '<%- JSON.stringify(employee_id) %>';
+
+                document.getElementById('edit-schedule').addEventListener('click', (e) => {
                     let scheduleData = {
                         employee_id: document.getElementById('employee_id').value,
                         facility_id: document.getElementById('facility_id').value,
@@ -59,15 +59,17 @@
                         end_time: document.getElementById('end_time').value,
                         hours: Math.abs(document.getElementById('end_time').value - document.getElementById('start_time').value)
                     };
- 
+
                     fetch(`/schedule/edit/${schedule_id}`, {
-                        method: 'POST',
-                        body: JSON.stringify(scheduleData),
-                        headers: { 'Content-Type': 'application/json' }
-                    }).then(res => res.json())
-                      .then(json => console.log(json));
+                            method: 'POST',
+                            body: JSON.stringify(scheduleData),
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        }).then(res => res.json())
+                        .then(json => console.log(json));
                 });
-            </script>  
+            </script>
         </div>
     </main>
 
