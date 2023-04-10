@@ -404,26 +404,26 @@ router.get('/query13/getInfo', async (req, res, next) => {
 
 router.get('/query14', async (req, res, next) => {
 
-    getInfo = `select Es.employee_id, Employee.first_name, Employee.last_name,
-    count(Distinct Es.facility_id) as N_OF_Facility,
-    City.name as City,
+    getInfo = `select t1.employee_id, Employee.first_name, Employee.last_name,
+    count(Distinct t1.facility_id) as N_OF_Facility,
+    CT.name as City,
     Occupation.Type
-    from Employee_Schedule as Es
-    join Facility on Facility.facility_id = Es.facility_id
+    from Work_At as t1
+    join Facility on Facility.facility_id = t1.facility_id
     join PostalCode on PostalCode.postal_code =Facility.postal_code
     join City on PostalCode.city_id = City.city_id
     join Province on Province.province_id  = City.province_id
     --
-    join Employee on  Es.employee_id = Employee.employee_id
+    join Employee on  t1.employee_id = Employee.employee_id
     join Occupation on Employee.occupation_id = Occupation.occupation_id
     --
-    join Employee_Address on Employee_Address.employee_id = Employee.employee_id
-    join PostalCode as PC on Employee_Address.Postal_Code = PC.postal_code
-    join City AS CT on PC.city_id = CT.city_id
+    left join Employee_Address on Employee_Address.employee_id = Employee.employee_id
+    left join PostalCode PC on Employee_Address.Postal_Code = PC.postal_code
+    left join City CT on PC.city_id = CT.city_id
     
-    where Province.name = "Quebec" and Occupation.Type = "Doctor"
-    GROUP BY Es.employee_id
-    order by City Asc, N_OF_Facility DESC;
+    where Province.name = "Quebec" and Occupation.Type = "Doctor" and (t1.End_Date is NULL or t1.End_Date >= current_date())
+    GROUP BY t1.employee_id
+    order by CT.name Asc, N_OF_Facility DESC;
     `
 
 
