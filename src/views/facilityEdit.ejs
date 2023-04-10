@@ -5,43 +5,50 @@
 
 <body>
     <main class="d-flex flex-nowrap">
-        
+
         <%- include('includes/sidebar.ejs') %>
 
-        <div  class="d-flex flex-column mb-3" style="margin: 20px;" >
+        <div class="d-flex flex-column mb-3" style="margin: 20px;">
 
-            <form  id="myForm" method="POST" action="/facility/edit/<%=data.facility_id %>">
-            <h2 style="font-family: serif;">Edit Facility</h2><br>
-            <div class="form-group">
-                <label  style="font-family: serif;" for="fname"> Name:</label>
-                <input   class="form-control" style="font-family: serif;"type="text" value="<%=data.name%>" id="facname" name="facname" required placeholder="Facility">
-                <!-- dropdown option are from the sql queries, join between facility and facility_type -->
-            </div>
-            <div class="form-group">
-            <label  style="font-family: serif;"for="fname">Address:</label>
-            <input type="text" class="form-control" value="<%=data.address%>" style="font-family: serif;"  id="address" name="address" required placeholder="Address">
-             </div>
-             <div class="form-group">
-            <label  style="font-family: serif;" for="fname">Postal Code:</label>
-            <input type="text" class="form-control" value="<%=data.postal_code%>" style="font-family: serif;" id="postalcode" name="postalcode" required placeholder="Postal Code">
-             </div>
-             <div class="form-group">
-            <label style="font-family: serif;" for="fname">Web address:</label>
-            <input type="text" class="form-control" value="<%=data.web_address%>" style="font-family: serif;"  id="webaddress" name="webaddress" required placeholder="Web address">
-             </div>
-             <div class="form-group">
-             <label style="font-family: serif;" for="fname">Total Capacity:</label>
-            <input type="number"  class="form-control"value="<%=data.capacity%>" style="font-family: serif;"  id="Capacity" name="Capacity" required placeholder="Capacity">
-            </div>
-            <label style="font-family: serif;" for="fname">Phone Number:</label>
-            <input type="tel" class="form-control" value="<%=data.phone_number%>" style="font-family: serif;"  id="phonenumber" name="phonenumber" required placeholder="Phone number">
-            
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/facility">Facility</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">edit</li>
+                </ol>
+            </nav>
+
+            <form id="myForm" method="POST" action="/facility/edit/<%=data.facility_id %>">
+                <h2 style="font-family: serif;">Edit Facility</h2><br>
+                <div class="form-group">
+                    <label style="font-family: serif;" for="fname"> Name:</label>
+                    <input class="form-control" style="font-family: serif;" type="text" value="<%=data.name%>" id="facname" name="facname" required placeholder="Facility">
+                    <!-- dropdown option are from the sql queries, join between facility and facility_type -->
+                </div>
+                <div class="form-group">
+                    <label style="font-family: serif;" for="fname">Address:</label>
+                    <input type="text" class="form-control" value="<%=data.address%>" style="font-family: serif;" id="address" name="address" required placeholder="Address">
+                </div>
+                <div class="form-group">
+                    <label style="font-family: serif;" for="fname">Postal Code:</label>
+                    <input type="text" class="form-control" value="<%=data.postal_code%>" style="font-family: serif;" id="postalcode" name="postalcode" required placeholder="Postal Code">
+                </div>
+                <div class="form-group">
+                    <label style="font-family: serif;" for="fname">Web address:</label>
+                    <input type="text" class="form-control" value="<%=data.web_address%>" style="font-family: serif;" id="webaddress" name="webaddress" required placeholder="Web address">
+                </div>
+                <div class="form-group">
+                    <label style="font-family: serif;" for="fname">Total Capacity:</label>
+                    <input type="number" class="form-control" value="<%=data.capacity%>" style="font-family: serif;" id="Capacity" name="Capacity" required placeholder="Capacity">
+                </div>
+                <label style="font-family: serif;" for="fname">Phone Number:</label>
+                <input type="tel" class="form-control" value="<%=data.phone_number%>" style="font-family: serif;" id="phonenumber" name="phonenumber" required placeholder="Phone number">
+
                 <br>
-            <input type="submit"  class="btn btn-primary" value="Update" id="name" name="name" required>
-        </form>
+                <input type="submit" class="btn btn-primary" value="Update" id="name" name="name" required>
+            </form>
 
         </div>
 
-</main>
+    </main>
 
-<%- include('includes/end.ejs') %>
+    <%- include('includes/end.ejs') %>

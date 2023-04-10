@@ -1,0 +1,49 @@
+<%- include('../includes/head.ejs') %>
+<!-- link to css files -->
+</head>
+
+<body>
+    <main class="d-flex flex-nowrap">
+        <%- include('../includes/Sidebar.ejs') %>
+        <div class="d-flex flex-column mb-3" style="margin: 20px;">
+
+            <%- include('../includes/queryNav.ejs') %>
+            <p>For every doctor who is currently working in the province of “Québec”, provide the doctor’s first-name, last-name, the city of residence of the doctor, and the total number of facilities the doctor is currently working for. Results should be displayed in ascending order by city, then in descending order by total number of facilities.</p>
+            <table id="query14_table" class="table table-striped table-sm">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">Employee ID #</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col"># of Facility</th>
+                        <th scope="col">City</th>
+                        <th scope="col">Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <%if(data.length>0){ %>
+                        <%data.forEach(entry =>{  %>
+                        <td><%=entry.employee_id%></td>
+                        <td><%=entry.first_name%></td>
+                        <td><%=entry.last_name%></td>
+                        <td><%=entry.N_OF_Facility%></td>
+                        <td><%=entry.City%></td>
+                        <td><%=entry.Type%></td>
+
+                    </tr>
+                    <%})} else { %>
+                    <h1>No Data</h1>
+                    <%  }  %>
+
+                </tbody>
+            </table>
+
+
+
+        </div>
+
+
+    </main>
+
+    <%- include('../includes/end.ejs') %>

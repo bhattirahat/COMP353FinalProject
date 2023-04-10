@@ -11,44 +11,48 @@
             <div class="d-flex justify-content-between">
                 <h1>Employee</h1>
             </div>
-            <div class="d-flex justify-content-center">
-                <table id="employee_table" class="table table-hover" style="width:100%">
-                    <thead class="table-light">
-                        <tr>
-                            <th scope="col">Emp_ID</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Email</th>
-                            <th>Date of Birth</th>
-                            <th>Medical Card Number</th>
-                            <th>Citizenship</th>
-                            <th>Occupation</th>
-                            <th>Address Line</th>
-                            <th>Postal Code</th>
-                            <th>Telephone Number</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% if (employee.length >  0) {%>
-                        <% for (let emp of employee) {%>
-                        <tr>
-                            <td><%= emp.employee_id %></td>
-                            <td><%= emp.first_name%></td>
-                            <td><%= emp.last_name%></td>
-                            <td><%= emp.email%></td>
-                            <td><%= emp.date_of_birth%></td>
-                            <td><%= emp.medical_card_number%></td>
-                            <td><%= emp.is_citizenship%></td>
-                            <td><%= emp.occupation%></td>
-                            <td><%= emp.Address_line%></td>
-                            <td><%= emp.Postal_Code%></td>
-                            <td><%= emp.telephone_number%></td>
-                        </tr>
-                        <% }%>
-                        <% }%>
-                    </tbody>
-                </table>
-            </div>
+
+            <table id="employee_table" class="table table-hover" style="width:100%">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">Emp_ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Date of Birth</th>
+                        <th>Medical Card Number</th>
+                        <th>Citizenship</th>
+                        <th>Occupation</th>
+                        <th>Address Line</th>
+                        <th>Postal Code</th>
+                        <th>City</th>
+                        <th>Province</th>
+                        <th>Telephone Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if (employee.length >  0) {%>
+                    <% for (let emp of employee) {%>
+                    <tr>
+                        <td><%= emp.employee_id %></td>
+                        <td><%= emp.first_name%></td>
+                        <td><%= emp.last_name%></td>
+                        <td><%= emp.email%></td>
+                        <td><%= emp.date_of_birth%></td>
+                        <td><%= emp.medical_card_number%></td>
+                        <td><%= emp.is_citizenship%></td>
+                        <td><%= emp.occupation%></td>
+                        <td><%= emp.Address_line%></td>
+                        <td><%= emp.Postal_Code%></td>
+                        <td><%= emp.city%></td>
+                        <td><%= emp.province%></td>
+                        <td><%= emp.telephone_number%></td>
+                    </tr>
+                    <% }%>
+                    <% }%>
+                </tbody>
+            </table>
+
 
             <div class="d-flex flex-row" style="gap: 10px;">
                 <button type="button" class="btn btn-primary" id="btnAdd" data-bs-toggle="modal" data-bs-target="#addModal">Add</button>

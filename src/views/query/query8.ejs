@@ -1,13 +1,13 @@
-<%- include('includes/head.ejs') %>
+<%- include('../includes/head.ejs') %>
 <!-- link to css files -->
 </head>
 
 <body>
     <main class="d-flex flex-nowrap">
-        <%- include('includes/Sidebar.ejs') %>
+        <%- include('../includes/Sidebar.ejs') %>
         <div class="d-flex flex-column mb-3" style="margin: 20px;">
 
-            <%- include('includes/queryNav.ejs') %>
+            <%- include('../includes/queryNav.ejs') %>
             <p>For a given employee, get the details of all the schedules she/he has been scheduled during a specific period of time. Details include facility name, day of the year, start time and end time. Results should be displayed sorted in ascending order by facility name, then by day of the year, the by start time. </p>
 
             <form action="/homepage/query8/getInfo" method="GET">
@@ -48,4 +48,4 @@
 
     </main>
 
-    <%- include('includes/end.ejs') %>
+    <%- include('../includes/end.ejs') %>
