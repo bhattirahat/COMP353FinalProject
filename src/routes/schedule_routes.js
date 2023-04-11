@@ -72,10 +72,12 @@ router.delete('/:id', (req, res) => {
 // Render Schedule edit form page
 router.get('/edit/:id', async (req, res, next) => {
     console.log(req._parsedUrl)
+    const a = req._parsedUrl["query"].split("=")[1];
+    const emp_ID = a.split("&")[0]
     res.render('schedule/edit', {
         pageTitle: 'Schedule Edit',
         schedule_id: req.params.id,
-        employee_id: req._parsedUrl["query"].split("=")[1]
+        employee_id: emp_ID
     })
 });
 

@@ -568,20 +568,18 @@ router.get('/query16/getInfo', async (req, res, next) => {
 })
 
 router.get('/query17/getInfo', async (req, res, next) => {
-    getInfo = `SELECT e.first_name, e.last_name, MIN(wa.start_date) AS first_day_worked, o.type AS role,
-    e.date_of_birth, e.email, SUM(es.Hours) AS total_hours_scheduled
-FROM Employee e
-JOIN Occupation o ON e.occupation_id = o.occupation_id
-JOIN Work_At wa ON e.employee_id = wa.employee_id
-JOIN Facility f ON wa.facility_id = f.facility_id
-JOIN Employee_Schedule es ON e.employee_id = es.employee_id
-WHERE NOT EXISTS (
-SELECT 1 FROM Infection i WHERE i.employee_id = e.employee_id
-)
-AND o.type IN ('Nurse', 'Doctor')
-AND es.work_date BETWEEN DATE(NOW()) AND DATE_ADD(DATE(NOW()), INTERVAL 7 DAY)  
-GROUP BY e.employee_id
-ORDER BY o.type ASC, e.first_name ASC, e.last_name ASC;`
+    getInfo = `select t2.employee_id, t2.first_name, t2.last_name, SUM(t1.Hours) AS total_hours_scheduled, t3.Type As Role, t4.start_date, t2.date_of_birth, t2.email
+    from Employee_Schedule t1
+    inner join Employee t2 on t1.employee_id = t2.employee_id
+    inner join Occupation t3 on t2.occupation_id = t3.occupation_id
+    inner join (select employee_id, min(Start_Date) as start_date from Work_At GROUP BY employee_id) t4 on t1.employee_id = t4.employee_id
+    where 
+        t1.work_date BETWEEN DATE(NOW()) AND DATE_ADD(DATE(NOW()), INTERVAL 4 week) and 
+        NOT EXISTS (
+            SELECT 1 FROM Infection i WHERE i.employee_id = t2.employee_id and (i.infection_type_id in (1,2))
+        )
+        And t3.type IN ('Nurse', 'Doctor')
+    group by t1.employee_id;`
 
     db.then(conn => {
         conn.query(getInfo, (err, result, fields) => {
